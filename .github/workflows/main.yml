@@ -70,6 +70,7 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch lineage_j3xnlte-userdebug
+        m org.cyanogenmod.platform -j$(nproc --all)
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME

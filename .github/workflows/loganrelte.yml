@@ -80,6 +80,7 @@ jobs:
     - name: Fix Missing CAF RIL Headers
       run: |
         echo "1. Creating the missing CAF telephony include directory..."
+        cd ~/TWRP
         mkdir -p hardware/ril-caf/include/telephony
 
         echo "2. Populating the directory with the missing headers..."

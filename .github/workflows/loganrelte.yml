@@ -48,6 +48,7 @@ jobs:
         python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS-Revived/android.git -b cm-14.1
         curl --create-dirs -L -o .repo/local_manifests/loganreltexx.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/loganreltexx.xml
         git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
+        git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Cleaning up even more
       run: |
@@ -85,6 +86,8 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP
+        rm -rf external/chromium-webview/
+        git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

@@ -77,6 +77,24 @@ jobs:
         else
           echo "Failed to download protobuf file. Checking network connection." && exit 1
         fi
+    - name: Fix Missing CAF RIL Headers
+      run: |
+        echo "1. Creating the missing CAF telephony include directory..."
+        mkdir -p hardware/ril-caf/include/telephony
+
+        echo "2. Populating the directory with the missing headers..."
+        if [ -d "hardware/ril/include/telephony" ]; then
+          # If standard AOSP RIL exists, copy its headers to the CAF path to satisfy the compiler
+          cp -r hardware/ril/include/telephony/* hardware/ril-caf/include/telephony/
+          echo "Successfully copied standard RIL headers to CAF path!"
+        else
+          # Fallback: Download exactly what it needs straight from LineageOS cm-14.1 upstream
+          echo "Standard RIL missing. Downloading headers from LineageOS upstream..."
+          curl -s https://raw.githubusercontent.com/LineageOS/android_hardware_ril/cm-14.1/include/telephony/ril.h > hardware/ril-caf/include/telephony/ril.h
+          curl -s https://raw.githubusercontent.com/LineageOS/android_hardware_ril/cm-14.1/include/telephony/ril_cdma_sms.h > hardware/ril-caf/include/telephony/ril_cdma_sms.h
+          curl -s https://raw.githubusercontent.com/LineageOS/android_hardware_ril/cm-14.1/include/telephony/ril_nv_items.h > hardware/ril-caf/include/telephony/ril_nv_items.h
+          echo "Successfully downloaded fallback headers!"
+        fi
     - name: Building LineageOS
       run: |
         OLDPATH=$PATH

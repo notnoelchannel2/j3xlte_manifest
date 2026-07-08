@@ -4,9 +4,21 @@
 						<!-- Loganreltexx -->
     <project path="device/samsung/loganreltexx" name="MSM8930-Samsung/android_device_samsung_loganreltexx" remote="github" revision="cm-14.1" />
     <project path="vendor/samsung/loganreltexx" name="MSM8930-Samsung/proprietary_vendor_samsung_loganreltexx" remote="github" revision="cm-14.1"/>
+
+						<!-- Expressltexx -->
+    <project path="device/samsung/expressltexx" name="MSM8930-Samsung/android_device_samsung_expressltexx" remote="github" revision="cm-14.1" />
+    <project path="vendor/samsung/expressltexx" name="MSM8930-Samsung/proprietary_vendor_samsung_expressltexx" remote="github" revision="cm-14.1"/>
     
-              <!-- Stock kernel -->
+    						<!-- Longare & Express Kernel -->
+    						<!-- Stock kernel -->
     <project path="kernel/samsung/msm8930-common" name="MSM8930-Samsung/android_kernel_samsung_msm8930-common" remote="github" revision="cm-14.1" />
+    						<!-- Custom kernel
+    <project path="kernel/samsung/custom_kernel" name="MSM8930-Samsung/android_kernel_samsung_msm8930-common" remote="github" revision="cm-13.0_mod" /> -->
+
+						<!-- Wilcoxltexx -->
+    <project path="device/samsung/wilcoxltexx" name="MSM8930-Samsung/android_device_samsung_wilcoxltexx" remote="github" revision="cm-14.1" />
+    <project path="vendor/samsung/wilcoxltexx" name="MSM8930-Samsung/proprietary_vendor_samsung_wilcoxltexx" remote="github" revision="cm-14.1"/>
+    <project path="kernel/samsung/wilcoxltexx" name="LineageOS/android_kernel_samsung_msm8930-common" remote="github" revision="cm-14.1" />
 
     						<!-- Common Repo's -->
     <project path="device/samsung/qcom-common" name="MSM8930-Samsung/android_device_samsung_qcom-common" remote="github" revision="cm-14.1" />
@@ -41,29 +53,5 @@
 <remove-project name="platform/prebuilts/go/darwin-x86" />
 <remove-project name="platform/prebuilts/ninja/darwin-x86" />
 <remove-project name="platform/prebuilts/python/darwin-x86/2.7.5" />
-
-<remove-project name="platform/developers/build" />
-<remove-project name="device/generic/mini-emulator-arm64" />
-<remove-project name="device/generic/mini-emulator-armv7-a-neon" />
-<remove-project name="device/generic/mini-emulator-x86" />
-<remove-project name="device/generic/mini-emulator-x86_64" />
-<remove-project name="device/generic/qemu" />
-<remove-project name="device/generic/x86" />
-<remove-project name="device/generic/x86_64" />
-<remove-project name="device/sample" />
-
-<remove-project name="platform/hardware/intel/audio_media" />
-<remove-project name="platform/hardware/intel/bootstub" />
-<remove-project name="platform/hardware/intel/common/bd_prov" />
-<remove-project name="LineageOS/android_hardware_intel_common_libmix" />
-<remove-project name="platform/hardware/intel/common/libstagefrighthw" />
-<remove-project name="LineageOS/android_hardware_intel_common_libva" />
-<remove-project name="LineageOS/android_hardware_intel_common_libwsbm" />
-<remove-project name="LineageOS/android_hardware_intel_common_omx-components" />
-<remove-project name="LineageOS/android_hardware_intel_common_utils" />
-<remove-project name="platform/hardware/intel/common/wrs_omxil_core" />
-<remove-project name="LineageOS/android_hardware_intel_img_hwcomposer" />
-<remove-project name="LineageOS/android_hardware_intel_img_psb_headers" />
-<remove-project name="LineageOS/android_hardware_intel_img_psb_video" />
 
 </manifest>

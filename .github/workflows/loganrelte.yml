@@ -55,29 +55,28 @@ jobs:
         sudo apt-get autoclean
         sudo journalctl --rotate
         sudo journalctl --vacuum-size=100M
-    - name: Inject sap-api-java-static Bypass Fix
+    - name: Completely Scrub and Bypass SAP Profile from Bluetooth
       run: |
-        echo "Creating standalone sap-api definition..."
-        # Move this inside 'hardware' so the Android build system will actually find it
-        mkdir -p hardware/sap-fix
+        echo "1. Removing sap-api dependency from Bluetooth Android.mk..."
+        sed -i '/sap-api-java-static/d' packages/apps/Bluetooth/Android.mk
+
+        echo "2. Deleting SAP profile source directory entirely..."
+        rm -rf packages/apps/Bluetooth/src/com/android/bluetooth/sap
+
+        echo "3. Scrubbing SAP hooks from core Bluetooth AdapterService..."
+        TARGET_JAVA="packages/apps/Bluetooth/src/com/android/bluetooth/btservice/AdapterService.java"
         
-        # 1. Create a standalone Android.mk to declare the missing Java module
-        cat << 'EOF' > hardware/sap-fix/Android.mk
-        LOCAL_PATH := $(call my-dir)
-        include $(CLEAR_VARS)
-        LOCAL_MODULE := sap-api-java-static
-        LOCAL_SRC_FILES := sap-api.proto
-        LOCAL_PROTOC_OPTIMIZE_TYPE := micro
-        include $(BUILD_STATIC_JAVA_LIBRARY)
-        EOF
-        
-        # 2. Download the official LineageOS 14.1 protobuf file needed by the module
-        curl -s https://raw.githubusercontent.com/LineageOS/android_hardware_ril/cm-14.1/librilutils/proto/sap-api.proto > hardware/sap-fix/sap-api.proto
-        
-        if [ -f "hardware/sap-fix/sap-api.proto" ] && [ -s "hardware/sap-fix/sap-api.proto" ]; then
-          echo "Successfully injected sap-api-java-static fix into hardware/sap-fix!"
+        if [ -f "$TARGET_JAVA" ]; then
+          # Remove the import line safely
+          sed -i '/import com.android.bluetooth.sap/d' "$TARGET_JAVA"
+          
+          # Remove the class initialization from the profile array safely without destroying the line
+          sed -i 's/SapService.class,//g' "$TARGET_JAVA"
+          sed -i 's/SapService.class//g' "$TARGET_JAVA"
+          
+          echo "SAP successfully eradicated from Bluetooth stack!"
         else
-          echo "Failed to download protobuf file. Checking network connection." && exit 1
+          echo "Warning: AdapterService.java not found at expected path."
         fi
     - name: Building LineageOS
       run: |

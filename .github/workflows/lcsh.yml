@@ -71,11 +71,11 @@ jobs:
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         mv ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk.bak
-        curl --create-dirs -L -o ~/TWRP/script.py -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/script.py
-        python3 script.py
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch lineage_lcsh-userdebug
+        curl --create-dirs -L -o ~/TWRP/script.py -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/script.py
+        python3 ~/TWRP/script.py
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME

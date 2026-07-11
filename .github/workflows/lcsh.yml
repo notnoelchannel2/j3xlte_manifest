@@ -70,6 +70,7 @@ jobs:
         cd ~/TWRP
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
+        mv ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk.bak
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

@@ -49,6 +49,7 @@ jobs:
         git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         git clone https://github.com/notnoelchannel2/android_device_htc_lcsh -b cm-14.1 ~/TWRP/device/htc/lcsh 
         git clone https://github.com/notnoelchannel2/android_vendor_htc_lcsh -b cm-14.1 ~/TWRP/vendor/htc/lcsh
+        curl --create-dirs -L -o ~/TWRP/script.py -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/script.py
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Cleaning up even more
@@ -71,11 +72,10 @@ jobs:
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         mv ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk.bak
+        python3 ~/TWRP/script.py
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch lineage_lcsh-userdebug
-        curl --create-dirs -L -o ~/TWRP/script.py -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/script.py
-        python3 ~/TWRP/script.py
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME

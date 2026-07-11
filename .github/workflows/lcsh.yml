@@ -75,6 +75,7 @@ jobs:
         python3 ~/TWRP/script.py
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
+        source build/envsetup.sh
         lunch lineage_lcsh-userdebug
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH

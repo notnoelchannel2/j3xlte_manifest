@@ -67,6 +67,7 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP/device/htc/lcsh/patches
+        sed -i 's/\r$//' apply.sh
         bash apply.sh
         cd ~/TWRP
         rm -rf external/chromium-webview/

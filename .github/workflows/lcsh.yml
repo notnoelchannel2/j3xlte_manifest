@@ -46,7 +46,6 @@ jobs:
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-14.1
-        curl --create-dirs -L -o .repo/local_manifests/j3xlte.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/j3xlte.xml
         git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         git clone https://github.com/notnoelchannel2/android_device_htc_lcsh -b cm-14.1 ~/TWRP/device/htc/lcsh 
         git clone https://github.com/notnoelchannel2/android_vendor_htc_lcsh -b cm-14.1 ~/TWRP/vendor/htc/lcsh

@@ -71,6 +71,13 @@ jobs:
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         mv ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk ~/TWRP/frameworks/av/media/libstagefright/colorconversion/Android.mk.bak
+        sed -i 's/AudioSystem::GetAudioData[^)]*)/0/g' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
+        sed -i 's/AudioSystem::SetEMParameter[^)]*)/0/g' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
+        sed -i 's/AudioSystem::SetAudioData[^)]*)/0/g' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
+        sed -i 's/AudioSystem::SetAudioCommand[^)]*)/0/g' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
+        sed -i 's/AudioSystem::GetAudioCommand[^)]*)/0/g' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
+        sed -i 's/AudioSystem::GetEMParameter[^)]*)/0/g' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
+        sed -i '/android_media_AudioSystem_SetAudioCommandX/,/^}/ s/^}/    return 0;\n}/' ~/TWRP/frameworks/base/core/jni/android_media_AudioSystem.cpp
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

@@ -68,6 +68,10 @@ jobs:
         git config --global user.name "Your Name"
         cd ~/TWRP/device/htc/lcsh/patches
         bash apply.sh
+        # FIX: Revert the MTK hardware scaler patches since libdpframework is missing
+        cd ~/TWRP/frameworks/av
+        git checkout media/libstagefright/colorconversion/ColorConverter.cpp
+        git checkout include/media/stagefright/ColorConverter.h || true
         cd ~/TWRP
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/

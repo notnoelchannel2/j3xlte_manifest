@@ -66,6 +66,7 @@ jobs:
         git config --global user.name "Your Name"
         cd ~/TWRP
         mv packages/apps/FMRadio/jni/fmr/Android.mk packages/apps/FMRadio/jni/fmr/Android.mk.bak
+        mv system/core/mkbootimg/Android.mk system/core/mkbootimg/Android.mk.bak
         rm -rf hardware/marvell/wlan
         git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan hardware/marvell/wlan
         rm -rf external/chromium-webview/

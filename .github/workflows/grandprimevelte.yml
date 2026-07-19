@@ -65,6 +65,8 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP
+        rm -rf hardware/marvell/wlan
+        git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan hardware/marvell/wlan
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         source build/envsetup.sh

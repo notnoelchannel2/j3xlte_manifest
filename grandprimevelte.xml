@@ -7,7 +7,7 @@
 	<project path="device/samsung/mrvl-common" name="Nemirtingas/android_device_samsung_mrvl-common" revision="lineage-13.0" />
 	<project path="kernel/samsung/grandprimevelte" name="Nemirtingas/android_kernel_samsung_grandprimevelte" revision="lineage-13.0" />
 
-	<project path="device/samsung/grandprimevelte" name="Nemirtingas/android_device_samsung_grandprimevelte" revision="lineage-13.0" />
+	<project path="device/samsung/grandprimevelte" name="notnoelchannel2/android_device_samsung_grandprimevelte" revision="lineage-13.0" />
 	<project path="vendor/samsung/grandprimevelte" name="Nemirtingas/android_vendor_samsung_grandprimevelte" revision="lineage-13.0" />
 	<project path="hardware/marvell/fm" name="Nemirtingas/android_hardware_marvell_fm" revision="los-13.0" />
 

@@ -18,7 +18,6 @@
 	<project path="hardware/marvell/bootimage" name="Nemirtingas/android_hardware_marvell_bootimage" revision="lineage-13.0" />
 	<project path="hardware/marvell/libprebuilt" name="Nemirtingas/android_hardware_marvell_libprebuilt" revision="lineage-13.0" />
   <project path="hardware/marvell/media" name="Nemirtingas/android_hardware_marvell_media" revision="lineage-13.0" />
-	<project path="hardware/marvell/wlan" name="Nemirtingas/android_hardware_marvell_wlan" revision="lineage-13.0" />
   <project path="hardware/marvell/keymaster" name="Nemirtingas/android_hardware_marvell_keymaster" revision="lineage-13.0" />
 	<project path="hardware/marvell/gps" name="Nemirtingas/android_hardware_marvell_gps" revision="lineage-13.0" />
 </manifest>

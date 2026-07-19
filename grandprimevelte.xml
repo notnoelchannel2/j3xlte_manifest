@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<project path="hardware/marvell/libMarvellWireless" name="Nemirtingas/android_hardware_marvell_libMarvellWireless" revision="los-13.0" />
+	<project path="hardware/marvell/pxa1908" name="Nemirtingas/android_hardware_marvell_pxa1908" revision="lineage-13.0" />
+	<project path="hardware/marvell/display" name="Nemirtingas/android_hardware_marvell_display" revision="lineage-13.0" />
+	<project path="device/samsung/pxa1908-common" name="Nemirtingas/android_device_samsung_pxa1908-common" revision="lineage-13.0" />
+	<project path="device/samsung/mrvl-common" name="Nemirtingas/android_device_samsung_mrvl-common" revision="lineage-13.0" />
+	<project path="kernel/samsung/grandprimevelte" name="Nemirtingas/android_kernel_samsung_grandprimevelte" revision="lineage-13.0" />
+
+	<project path="device/samsung/grandprimevelte" name="Nemirtingas/android_device_samsung_grandprimevelte" revision="lineage-13.0" />
+	<project path="vendor/samsung/grandprimevelte" name="Nemirtingas/android_vendor_samsung_grandprimevelte" revision="lineage-13.0" />
+	<project path="hardware/marvell/fm" name="Nemirtingas/android_hardware_marvell_fm" revision="los-13.0" />
+
+	<project path="hardware/marvell/libmvmem" name="Nemirtingas/android_hardware_marvell_libmvmem" revision="lineage-13.0" />
+	<project path="hardware/marvell/vendor-libs" name="Nemirtingas/android_hardware_marvell_vendor-libs" revision="lineage-13.0" />
+	<project path="hardware/marvell/MarvellWirelessDaemon" name="Nemirtingas/android_hardware_marvell_MarvellWirelessDaemon" revision="lineage-13.0" />
+	<project path="hardware/marvell/audio" name="Nemirtingas/android_hardware_marvell_audio" revision="lineage-13.0" />
+	<project path="hardware/marvell/bootimage" name="Nemirtingas/android_hardware_marvell_bootimage" revision="lineage-13.0" />
+	<project path="hardware/marvell/libprebuilt" name="Nemirtingas/android_hardware_marvell_libprebuilt" revision="lineage-13.0" />
+  <project path="hardware/marvell/media" name="Nemirtingas/android_hardware_marvell_media" revision="lineage-13.0" />
+	<project path="hardware/marvell/wlan" name="Nemirtingas/android_hardware_marvell_wlan" revision="lineage-13.0" />
+  <project path="hardware/marvell/keymaster" name="Nemirtingas/android_hardware_marvell_keymaster" revision="lineage-13.0" />
+	<project path="hardware/marvell/gps" name="Nemirtingas/android_hardware_marvell_gps" revision="lineage-13.0" />
+</manifest>

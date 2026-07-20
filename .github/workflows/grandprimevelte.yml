@@ -45,8 +45,8 @@ jobs:
         cd ~/TWRP
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-        python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-13.0
-        curl --create-dirs -L -o .repo/local_manifests/grandprimevelte.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/grandprimevelte.xml
+        python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-14.1
+        curl --create-dirs -L -o .repo/local_manifests/grandprimevelte.xml -O -L https://raw.githubusercontent.com/Nemirtingas/.repo_local_manifests/refs/heads/lineage-14.1/grandprimevelte.xml
         git clone --depth 1 --branch android-6.0.1_r81 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
@@ -67,15 +67,12 @@ jobs:
         cd ~/TWRP
         mv packages/apps/FMRadio/jni/fmr/Android.mk packages/apps/FMRadio/jni/fmr/Android.mk.bak
         mv system/core/mkbootimg/Android.mk system/core/mkbootimg/Android.mk.bak
-        rm -rf hardware/marvell/wlan
-        git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan hardware/marvell/wlan
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
-        sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
-        lunch lineage_grandprimevelte-eng
+        lunch lineage_grandprimevelte-userdebug
         m org.cyanogenmod.platform -j$(nproc --all)
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH

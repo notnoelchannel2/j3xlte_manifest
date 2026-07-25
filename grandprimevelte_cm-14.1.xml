@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+        <remote name="Nemirtingas" fetch="https://github.com/Nemirtingas/"       />
+        <remote name="LineageOS"   fetch="https://github.com/LineageOS/"         />
+        <remote name="TWRP"        fetch="https://github.com/omnirom/"           />
+
+        <project path="hardware/samsung"                     name="android_hardware_samsung"                     remote="LineageOS" revision="cm-14.1"    />
+        <project path="external/busybox"                     name="android_external_busybox"                     remote="LineageOS" revision="cm-14.1"    />
+        <project path="external/stlport"                     name="android_external_stlport"                     remote="LineageOS" revision="cm-14.1"    />
+        <project path="external/sony/boringssl-compat"       name="android_external_sony_boringssl-compat"       remote="LineageOS" revision="cm-14.1"    />
+        <project path="packages/resources/devicesettings"    name="android_packages_resources_devicesettings"    remote="LineageOS" revision="cm-14.1"    />
+
+
+        <remove-project name="android_external_busybox" />
+        <remove-project name="android_hardware_marvell_wlan" />
+	    <project path="external/busybox"               name="android_external_busybox"             remote="TWRP" revision="android-7.1"/>
+	    <project path="bootable/recovery-twrp"         name="android_bootable_recovery"            remote="TWRP" revision="android-7.1"/>
+
+        <!-- Marvell sepolicy for android >= 7 -->
+        <project path="device/marvell/sepolicy"          name="android_device_marvell_sepolicy"          remote="Nemirtingas" revision="lineage-14.1"    />
+        <!-- Common tree -->
+        <project path="device/samsung/mrvl-common"       name="android_device_samsung_mrvl-common"       remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="device/samsung/pxa1908-common"    name="android_device_samsung_pxa1908-common"    remote="Nemirtingas" revision="lineage-14.1"    />
+        <!-- Device tree -->
+        <project path="device/samsung/grandprimevelte"   name="android_device_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <!-- Hardware libs -->
+        <project path="hardware/marvell/fm"              name="android_hardware_marvell_fm"              remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/libmvmem"        name="android_hardware_marvell_libmvmem"        remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/vendor-libs"     name="android_hardware_marvell_vendor-libs"     remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/MarvellWirelessDaemon"   name="android_hardware_marvell_MarvellWirelessDaemon"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/display"         name="android_hardware_marvell_display"         remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/pxa1908"         name="android_hardware_marvell_pxa1908"         remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/libMarvellWireless" name="android_hardware_marvell_libMarvellWireless"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/audio"           name="android_hardware_marvell_audio"           remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/bootimage"       name="android_hardware_marvell_bootimage"       remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/media"           name="android_hardware_marvell_media"           remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/wlan"            name="android_hardware_marvell_wlan"            remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/keymaster"       name="android_hardware_marvell_keymaster"       remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/gps"             name="android_hardware_marvell_gps"             remote="Nemirtingas" revision="lineage-14.1"    />
+        <!-- Vendor sepolicy -->
+        <project path="vendor/cm/sepolicy/marvell"       name="/android_vendor_cm_sepolicy_marvell"      remote="Nemirtingas" revision="lineage-14.1"    />
+        <!-- Vendor libs -->
+        <project path="vendor/samsung/grandprimevelte"   name="android_vendor_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <!-- Kernel -->
+        <project path="kernel/samsung/grandprimevelte"   name="android_kernel_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
+</manifest>

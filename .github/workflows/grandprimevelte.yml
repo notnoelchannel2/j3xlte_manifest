@@ -46,7 +46,7 @@ jobs:
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-14.1
-        curl --create-dirs -L -o .repo/local_manifests/grandprimevelte.xml -O -L https://raw.githubusercontent.com/Nemirtingas/.repo_local_manifests/refs/heads/lineage-14.1/grandprimevelte.xml
+        curl --create-dirs -L -o .repo/local_manifests/grandprimevelte.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/grandprimevelte_cm-14.1.xml
         git clone --depth 1 --branch android-6.0.1_r81 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
@@ -58,6 +58,24 @@ jobs:
         sudo journalctl --vacuum-size=100M
     - name: Building LineageOS
       run: |
+        cd ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/
+        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/FMRadio_jni_fmr_Android.mk.patch ~/TWRP/packages/apps/FMRadio/jni/fmr
+        cd ~/TWRP/packages/apps/FMRadio/jni/fmr
+        patch -p5 < FMRadio_jni_fmr_Android.mk.patch
+        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/GraphicBuffer.cpp.patch ~/TWRP/frameworks/native/libs/ui/GraphicBuffer.cpp.patch
+        cd ~/TWRP/frameworks/native/libs/ui/
+        patch -p4 < GraphicBuffer.cpp.patch
+        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/GraphicBuffer.h.patch ~/TWRP/frameworks/native/include/ui/GraphicBuffer.h.patch
+        cd ~/TWRP/frameworks/native/include/ui/
+        patch -p4 < GraphicBuffer.h.patch
+        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/com_android_internal_os_Zygote.cpp.patch ~/TWRP/frameworks/base/core/jni/com_android_internal_os_Zygote.cpp.patch
+        cd ~/TWRP/frameworks/base/core/jni/
+        patch -p4 < com_android_internal_os_Zygote.cpp.patch
+        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/mkbootimg_Android.mk.patch ~/TWRP/system/core/mkbootimg/mkbootimg_Android.mk.patch
+        cd ~/TWRP/system/core/mkbootimg/
+        patch -p3 < mkbootimg_Android.mk.patch
+    - name: Building LineageOS
+      run: |
         OLDPATH=$PATH
         OLDJAVAHOME=$JAVA_HOME
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
@@ -65,8 +83,8 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP
-        mv packages/apps/FMRadio/jni/fmr/Android.mk packages/apps/FMRadio/jni/fmr/Android.mk.bak
-        mv system/core/mkbootimg/Android.mk system/core/mkbootimg/Android.mk.bak
+        rm -rf ~/TWRP/device/samsung/grandprimevelte
+        git clone https://github.com/notnoelchannel2/android_device_samsung_grandprimevelte -b lineage-14.1 ~/TWRP/device/samsung/grandprimevelte
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack
         sudo sed -i 's/TLSv1, TLSv1\.1, //g' /etc/java-8-openjdk/security/java.security

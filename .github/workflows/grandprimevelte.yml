@@ -87,9 +87,6 @@ jobs:
         git clone https://github.com/notnoelchannel2/android_device_samsung_grandprimevelte -b lineage-14.1 ~/TWRP/device/samsung/grandprimevelte
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack
-        sudo sed -i 's/TLSv1, TLSv1\.1, //g' /etc/java-8-openjdk/security/java.security
-        sudo sed -i 's/TLSv1, //g' /etc/java-8-openjdk/security/java.security
-        sudo sed -i 's/TLSv1\.1, //g' /etc/java-8-openjdk/security/java.security
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         rm -rf hardware/marvell/wlan

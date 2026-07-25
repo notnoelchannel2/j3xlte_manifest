@@ -83,7 +83,7 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP
-        git clone --depth 1 https://android.googlesource.com/platform/prebuilt ~/TWRP/prebuilt
+        git clone --depth 1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-eabi-4.8 ~/TWRP/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3
         rm -rf ~/TWRP/device/samsung/grandprimevelte
         git clone https://github.com/notnoelchannel2/android_device_samsung_grandprimevelte -b lineage-14.1 ~/TWRP/device/samsung/grandprimevelte
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin

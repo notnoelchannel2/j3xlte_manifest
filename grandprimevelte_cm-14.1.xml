@@ -30,7 +30,8 @@
         <project path="hardware/marvell/display"         name="android_hardware_marvell_display"         remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/pxa1908"         name="android_hardware_marvell_pxa1908"         remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/libMarvellWireless" name="android_hardware_marvell_libMarvellWireless"   remote="Nemirtingas" revision="lineage-14.1"    />
-        <project path="hardware/marvell/audio"           name="android_hardware_marvell_audio"           remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="hardware/marvell/libprebuilt" name="android_hardware_marvell_libprebuilt"   remote="Nemirtingas" revision="lineage-14.1"    />
+		<project path="hardware/marvell/audio"           name="android_hardware_marvell_audio"           remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/bootimage"       name="android_hardware_marvell_bootimage"       remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/media"           name="android_hardware_marvell_media"           remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/keymaster"       name="android_hardware_marvell_keymaster"       remote="Nemirtingas" revision="lineage-14.1"    />

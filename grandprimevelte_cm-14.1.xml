@@ -36,7 +36,7 @@
         <project path="hardware/marvell/keymaster"       name="android_hardware_marvell_keymaster"       remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/gps"             name="android_hardware_marvell_gps"             remote="Nemirtingas" revision="lineage-14.1"    />
         <!-- Vendor sepolicy -->
-        <project path="vendor/cm/sepolicy/marvell"       name="/android_vendor_cm_sepolicy_marvell"      remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="vendor/cm/sepolicy/marvell"       name="android_vendor_cm_sepolicy_marvell"      remote="Nemirtingas" revision="lineage-14.1"    />
         <!-- Vendor libs -->
         <project path="vendor/samsung/grandprimevelte"   name="android_vendor_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
         <!-- Kernel -->

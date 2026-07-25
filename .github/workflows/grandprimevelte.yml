@@ -92,6 +92,8 @@ jobs:
         sudo sed -i 's/TLSv1\.1, //g' /etc/java-8-openjdk/security/java.security
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
+        rm -rf hardware/marvell/wlan
+        git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan -b lineage-14.1 hardware/marvell/wlan
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

@@ -91,6 +91,8 @@ jobs:
         rm -rf hardware/marvell/wlan
         git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan -b lineage-14.1 hardware/marvell/wlan
         find hardware/marvell/audio -name "Android.mk" -exec sed -i 's/include $(BUILD_SHARED_LIBRARY)/LOCAL_CFLAGS += -Wno-error -Wno-gnu-designator -Wno-unused-variable -Wno-unused-function\ninclude $(BUILD_SHARED_LIBRARY)/g' {} +
+        find kernel/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} +
+        find out/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} + 2>/dev/null || true
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

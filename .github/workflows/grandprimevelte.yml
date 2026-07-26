@@ -94,6 +94,7 @@ jobs:
         git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan -b lineage-14.1 hardware/marvell/wlan
         mkdir -p ~/TWRP/prebuilts/gcc/linux-x86/aarch64
         ln -sf /opt/toolchains/aarch64-linux-android-4.8 ~/TWRP/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.2-linaro
+        find hardware/marvell/audio -name "Android.mk" -exec sed -i 's/include $(BUILD_SHARED_LIBRARY)/LOCAL_CFLAGS += -Wno-error -Wno-gnu-designator -Wno-unused-variable -Wno-unused-function\ninclude $(BUILD_SHARED_LIBRARY)/g' {} +
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

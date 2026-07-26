@@ -41,5 +41,5 @@
         <!-- Vendor libs -->
         <project path="vendor/samsung/grandprimevelte"   name="android_vendor_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
         <!-- Kernel -->
-        <project path="kernel/samsung/grandprimevelte"   name="android_kernel_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="kernel/samsung/grandprimevelte"   name="android_kernel_samsung_grandprimevelte"   remote="notnoelchannel2" revision="lineage-14.1"    />
 </manifest>

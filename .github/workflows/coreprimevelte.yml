@@ -103,4 +103,4 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: lineageos
-        path: /home/runner/TWRP/out/target/product/grandprimevelte/*.zip
+        path: /home/runner/TWRP/out/target/product/coreprimevelte/*.zip

@@ -20,9 +20,9 @@
         <project path="device/marvell/sepolicy"          name="android_device_marvell_sepolicy"          remote="Nemirtingas" revision="lineage-14.1"    />
         <!-- Common tree -->
         <project path="device/samsung/mrvl-common"       name="android_device_samsung_mrvl-common"       remote="Nemirtingas" revision="lineage-14.1"    />
-        <project path="device/samsung/pxa1908-common"    name="android_device_samsung_pxa1908-common"    remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="device/samsung/pxa1908-common"    name="android_device_samsung_pxa1908-common"    remote="notnoelchannel2" revision="lineage-14.1"    />
         <!-- Device tree -->
-        <project path="device/samsung/grandprimevelte"   name="android_device_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="device/samsung/coreprimevelte"   name="android_device_samsung_coreprimevelte"   remote="notnoelchannel2" revision="lineage-14.1"    />
         <!-- Hardware libs -->
         <project path="hardware/marvell/fm"              name="android_hardware_marvell_fm"              remote="Nemirtingas" revision="lineage-14.1"    />
         <project path="hardware/marvell/libmvmem"        name="android_hardware_marvell_libmvmem"        remote="Nemirtingas" revision="lineage-14.1"    />
@@ -40,7 +40,7 @@
         <!-- Vendor sepolicy -->
         <project path="vendor/cm/sepolicy/marvell"       name="android_vendor_cm_sepolicy_marvell"      remote="Nemirtingas" revision="lineage-14.1"    />
         <!-- Vendor libs -->
-        <project path="vendor/samsung/grandprimevelte"   name="android_vendor_samsung_grandprimevelte"   remote="Nemirtingas" revision="lineage-14.1"    />
+        <project path="vendor/samsung/coreprimevelte"   name="android_vendor_samsung_coreprimevelte"   remote="notnoelchannel2" revision="lineage-14.1"    />
         <!-- Kernel -->
-        <project path="kernel/samsung/grandprimevelte"   name="android_kernel_samsung_grandprimevelte"   remote="notnoelchannel2" revision="lineage-14.1"    />
+        <project path="kernel/samsung/coreprimevelte"   name="android_kernel_samsung_coreprimevelte"   remote="notnoelchannel2" revision="lineage-14.1"    />
 </manifest>

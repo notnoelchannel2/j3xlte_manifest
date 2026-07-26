@@ -92,6 +92,8 @@ jobs:
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         rm -rf hardware/marvell/wlan
         git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan -b lineage-14.1 hardware/marvell/wlan
+        mkdir -p ~/TWRP/prebuilts/gcc/linux-x86/aarch64
+        ln -sf /opt/toolchains/aarch64-linux-android-4.8 ~/TWRP/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.2-linaro
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

@@ -1,4 +1,4 @@
-name: LineageOS CI (SM-G531F)
+name: LineageOS CI (SM-G361F)
 
 on:
   workflow_dispatch:
@@ -46,7 +46,7 @@ jobs:
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-14.1
-        curl --create-dirs -L -o .repo/local_manifests/grandprimevelte.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/grandprimevelte_cm-14.1.xml
+        curl --create-dirs -L -o .repo/local_manifests/coreprimevelte.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/coreprimevelte_cm-14.1.xml
         sudo git clone --depth 1 --branch android-5.1.1_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.8 /opt/toolchains/aarch64-linux-android-4.8/
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
@@ -58,20 +58,20 @@ jobs:
         sudo journalctl --vacuum-size=100M
     - name: Building LineageOS
       run: |
-        cd ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/
-        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/FMRadio_jni_fmr_Android.mk.patch ~/TWRP/packages/apps/FMRadio/jni/fmr
+        cd ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/
+        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/FMRadio_jni_fmr_Android.mk.patch ~/TWRP/packages/apps/FMRadio/jni/fmr
         cd ~/TWRP/packages/apps/FMRadio/jni/fmr
         patch -p5 < FMRadio_jni_fmr_Android.mk.patch
-        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/GraphicBuffer.cpp.patch ~/TWRP/frameworks/native/libs/ui/GraphicBuffer.cpp.patch
+        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/GraphicBuffer.cpp.patch ~/TWRP/frameworks/native/libs/ui/GraphicBuffer.cpp.patch
         cd ~/TWRP/frameworks/native/libs/ui/
         patch -p4 < GraphicBuffer.cpp.patch
-        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/GraphicBuffer.h.patch ~/TWRP/frameworks/native/include/ui/GraphicBuffer.h.patch
+        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/GraphicBuffer.h.patch ~/TWRP/frameworks/native/include/ui/GraphicBuffer.h.patch
         cd ~/TWRP/frameworks/native/include/ui/
         patch -p4 < GraphicBuffer.h.patch
-        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/com_android_internal_os_Zygote.cpp.patch ~/TWRP/frameworks/base/core/jni/com_android_internal_os_Zygote.cpp.patch
+        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/com_android_internal_os_Zygote.cpp.patch ~/TWRP/frameworks/base/core/jni/com_android_internal_os_Zygote.cpp.patch
         cd ~/TWRP/frameworks/base/core/jni/
         patch -p4 < com_android_internal_os_Zygote.cpp.patch
-        mv ~/TWRP/device/samsung/grandprimevelte/grandprimevelte_patchs/mkbootimg_Android.mk.patch ~/TWRP/system/core/mkbootimg/mkbootimg_Android.mk.patch
+        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/mkbootimg_Android.mk.patch ~/TWRP/system/core/mkbootimg/mkbootimg_Android.mk.patch
         cd ~/TWRP/system/core/mkbootimg/
         patch -p3 < mkbootimg_Android.mk.patch
     - name: Building LineageOS
@@ -84,21 +84,16 @@ jobs:
         git config --global user.name "Your Name"
         cd ~/TWRP
         git clone --depth 1 https://github.com/LiquidSmokeX64/android_prebuilts_gcc_linux-x86_arm_arm-eabi-4.8 ~/TWRP/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3
-        rm -rf ~/TWRP/device/samsung/grandprimevelte
-        git clone https://github.com/notnoelchannel2/android_device_samsung_grandprimevelte -b lineage-14.1 ~/TWRP/device/samsung/grandprimevelte
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         rm -rf hardware/marvell/wlan
         git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan -b lineage-14.1 hardware/marvell/wlan
-        mkdir -p ~/TWRP/prebuilts/gcc/linux-x86/aarch64
-        ln -sf /opt/toolchains/aarch64-linux-android-4.8 ~/TWRP/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.2-linaro
         find hardware/marvell/audio -name "Android.mk" -exec sed -i 's/include $(BUILD_SHARED_LIBRARY)/LOCAL_CFLAGS += -Wno-error -Wno-gnu-designator -Wno-unused-variable -Wno-unused-function\ninclude $(BUILD_SHARED_LIBRARY)/g' {} +
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
-        export CROSS_COMPILE=/opt/toolchains/aarch64-linux-android-4.8/bin/aarch64-linux-android-
         lunch lineage_grandprimevelte-userdebug
         m org.cyanogenmod.platform -j$(nproc --all)
         make -j$(nproc --all) otapackage

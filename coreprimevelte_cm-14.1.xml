@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-        <remote name="Nemirtingas" fetch="https://github.com/Nemirtingas/"       />
+        <remote name="pxa1908-devices" fetch="https://github.com/pxa1908-devices/"       />
 		<remote name="notnoelchannel2" fetch="https://github.com/notnoelchannel2/"       />
         <remote name="LineageOS"   fetch="https://github.com/LineageOS/"         />
         <remote name="TWRP"        fetch="https://github.com/omnirom/"           />

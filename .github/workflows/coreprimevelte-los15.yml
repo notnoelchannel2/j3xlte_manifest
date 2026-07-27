@@ -65,9 +65,6 @@ jobs:
         mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/GraphicBuffer.cpp.patch ~/TWRP/frameworks/native/libs/ui/GraphicBuffer.cpp.patch
         cd ~/TWRP/frameworks/native/libs/ui/
         patch -p4 < GraphicBuffer.cpp.patch
-        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/GraphicBuffer.h.patch ~/TWRP/frameworks/native/include/ui/GraphicBuffer.h.patch
-        cd ~/TWRP/frameworks/native/include/ui/
-        patch -p4 < GraphicBuffer.h.patch
         mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/com_android_internal_os_Zygote.cpp.patch ~/TWRP/frameworks/base/core/jni/com_android_internal_os_Zygote.cpp.patch
         cd ~/TWRP/frameworks/base/core/jni/
         patch -p4 < com_android_internal_os_Zygote.cpp.patch
@@ -97,7 +94,6 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch lineage_coreprimevelte-userdebug
-        m org.cyanogenmod.platform -j$(nproc --all)
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME

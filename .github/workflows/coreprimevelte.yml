@@ -106,3 +106,8 @@ jobs:
       with:
         name: lineageos
         path: /home/runner/TWRP/out/target/product/coreprimevelte/*.zip
+    - name: Uploading TWRP builds
+      uses: actions/upload-artifact@v7
+      with:
+        name: twrp
+        path: /home/runner/TWRP/out/target/product/coreprimevelte/recovery.img

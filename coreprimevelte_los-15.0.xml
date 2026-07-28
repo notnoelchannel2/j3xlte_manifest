@@ -42,5 +42,5 @@
         <!-- Vendor libs -->
         <project path="vendor/samsung/coreprimevelte"   name="android_vendor_samsung_coreprimevelte"   remote="pxa1908-devices" revision="lineage-14.1"    />
         <!-- Kernel -->
-        <project path="kernel/samsung/coreprimevelte"   name="android_kernel_samsung_coreprimevelte"   remote="pxa1908-devices" revision="lineage-14.1"    />
+        <project path="kernel/samsung/coreprimevelte"   name="android_kernel_samsung_coreprimevelte"   remote="pxa1908-devices" revision="lineage-15.0"    />
 </manifest>

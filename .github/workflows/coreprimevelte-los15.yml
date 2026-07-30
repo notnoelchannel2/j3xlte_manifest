@@ -64,7 +64,6 @@ jobs:
         patch -p5 < FMRadio_jni_fmr_Android.mk.patch
         cd ~/TWRP
         patch -p1 < device/samsung/coreprimevelte/coreprimevelte_patchs/oreo_graphic.patch
-        patch -p1 < device/samsung/coreprimevelte/coreprimevelte_patchs/com_android_internal_os_Zygote.cpp.patch
         mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/mkbootimg_Android.mk.patch ~/TWRP/system/core/mkbootimg/mkbootimg_Android.mk.patch
         cd ~/TWRP/system/core/mkbootimg/
         patch -p3 < mkbootimg_Android.mk.patch

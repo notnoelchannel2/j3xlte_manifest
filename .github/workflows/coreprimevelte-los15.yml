@@ -62,9 +62,9 @@ jobs:
         mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/FMRadio_jni_fmr_Android.mk.patch ~/TWRP/packages/apps/FMRadio/jni/fmr
         cd ~/TWRP/packages/apps/FMRadio/jni/fmr
         patch -p5 < FMRadio_jni_fmr_Android.mk.patch
-        mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/GraphicBuffer.cpp.patch ~/TWRP/frameworks/native/libs/ui/GraphicBuffer.cpp.patch
-        cd ~/TWRP/frameworks/native/libs/ui/
-        patch -p4 < GraphicBuffer.cpp.patch
+        cd ~/TWRP
+        patch -p1 < device/samsung/coreprimevelte/coreprimevelte_patchs/oreo_graphic.patch
+        patch -p1 < device/samsung/coreprimevelte/coreprimevelte_patchs/com_android_internal_os_Zygote.cpp.patch
         mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/mkbootimg_Android.mk.patch ~/TWRP/system/core/mkbootimg/mkbootimg_Android.mk.patch
         cd ~/TWRP/system/core/mkbootimg/
         patch -p3 < mkbootimg_Android.mk.patch
@@ -87,8 +87,6 @@ jobs:
         find hardware/marvell/audio -name "Android.mk" -exec sed -i 's/include $(BUILD_SHARED_LIBRARY)/LOCAL_CFLAGS += -Wno-error -Wno-gnu-designator -Wno-unused-variable -Wno-unused-function\ninclude $(BUILD_SHARED_LIBRARY)/g' {} +
         find kernel/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} +
         find out/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} + 2>/dev/null || true
-        sed -i 's/domain_deprecated, //g' device/marvell/sepolicy/common/*.te
-        sed -i 's/, domain_deprecated//g' device/marvell/sepolicy/common/*.te
         rm -rf ~/TWRP/.repo
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true

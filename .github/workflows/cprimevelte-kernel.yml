@@ -1,4 +1,4 @@
-name: LineageOS CI (SM-G361F)
+name: LineageOS bootimage CI (SM-G361F)
 
 on:
   workflow_dispatch:

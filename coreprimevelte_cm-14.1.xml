@@ -17,7 +17,7 @@
 	    <project path="bootable/recovery-twrp"         name="android_bootable_recovery"            remote="TWRP" revision="android-7.1"/>
 
         <!-- Marvell sepolicy for android >= 7 -->
-        <project path="device/marvell/sepolicy"          name="android_device_marvell_sepolicy"          remote="pxa1908-devices" revision="lineage-14.1"    />
+        <project path="device/marvell/sepolicy"          name="android_device_marvell_sepolicy"          remote="pxa1908-devices" revision="los-14.1"    />
         <!-- Common tree -->
         <project path="device/samsung/mrvl-common"       name="android_device_samsung_mrvl-common"       remote="pxa1908-devices" revision="lineage-14.1"    />
         <project path="device/samsung/pxa1908-common"    name="android_device_samsung_pxa1908-common"    remote="pxa1908-devices" revision="lineage-14.1"    />

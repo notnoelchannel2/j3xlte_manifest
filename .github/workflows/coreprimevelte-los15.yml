@@ -65,7 +65,6 @@ jobs:
         cd ~/TWRP
         patch -p1 < device/samsung/coreprimevelte/coreprimevelte_patchs/oreo_graphic.patch
         patch -p1 -d frameworks/webview < device/samsung/coreprimevelte/coreprimevelte_patchs/oreo_graphic_buffer.patch
-        patch -p1 -d hardware/ril < device/samsung/coreprimevelte/coreprimevelte_patchs/oreo_rild.patch
         mv ~/TWRP/device/samsung/coreprimevelte/coreprimevelte_patchs/mkbootimg_Android.mk.patch ~/TWRP/system/core/mkbootimg/mkbootimg_Android.mk.patch
         cd ~/TWRP/system/core/mkbootimg/
         patch -p3 < mkbootimg_Android.mk.patch
@@ -88,6 +87,7 @@ jobs:
         find hardware/marvell/audio -name "Android.mk" -exec sed -i 's/include $(BUILD_SHARED_LIBRARY)/LOCAL_CFLAGS += -Wno-error -Wno-gnu-designator -Wno-unused-variable -Wno-unused-function\ninclude $(BUILD_SHARED_LIBRARY)/g' {} +
         find kernel/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} +
         find out/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} + 2>/dev/null || true
+        sed -i 's/#define MAX_LIB_ARGS.*/&\n\n#ifndef MAX_SERVICE_NAME_LENGTH\n#define MAX_SERVICE_NAME_LENGTH 128\n#endif/' hardware/ril/rild/rild.c
         rm -rf ~/TWRP/.repo
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true

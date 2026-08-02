@@ -26,7 +26,7 @@
         <!-- Hardware libs -->
         <project path="hardware/marvell/fm"              name="android_hardware_marvell_fm"              remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/libmvmem"        name="android_hardware_marvell_libmvmem"        remote="pxa1908-devices" revision="lineage-14.1"    />
-        <project path="hardware/marvell/vendor-libs"     name="android_hardware_marvell_vendor-libs"     remote="pxa1908-devices" revision="lineage-14.1"    />
+        <project path="hardware/marvell/vendor-libs"     name="android_hardware_marvell_vendor-libs"     remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/MarvellWirelessDaemon"   name="android_hardware_marvell_MarvellWirelessDaemon"   remote="pxa1908-devices" revision="lineage-14.1"    />
         <project path="hardware/marvell/display"         name="android_hardware_marvell_display"         remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/pxa1908"         name="android_hardware_marvell_pxa1908"         remote="pxa1908-devices" revision="lineage-14.1"    />

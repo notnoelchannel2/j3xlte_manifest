@@ -27,16 +27,16 @@
         <project path="hardware/marvell/fm"              name="android_hardware_marvell_fm"              remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/libmvmem"        name="android_hardware_marvell_libmvmem"        remote="pxa1908-devices" revision="lineage-14.1"    />
         <project path="hardware/marvell/vendor-libs"     name="android_hardware_marvell_vendor-libs"     remote="pxa1908-devices" revision="lineage-15.0"    />
-        <project path="hardware/marvell/MarvellWirelessDaemon"   name="android_hardware_marvell_MarvellWirelessDaemon"   remote="pxa1908-devices" revision="lineage-14.1"    />
+        <project path="hardware/marvell/MarvellWirelessDaemon"   name="android_hardware_marvell_MarvellWirelessDaemon"   remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/display"         name="android_hardware_marvell_display"         remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/pxa1908"         name="android_hardware_marvell_pxa1908"         remote="pxa1908-devices" revision="lineage-14.1"    />
-        <project path="hardware/marvell/libMarvellWireless" name="android_hardware_marvell_libMarvellWireless"   remote="pxa1908-devices" revision="lineage-14.1"    />
+        <project path="hardware/marvell/libMarvellWireless" name="android_hardware_marvell_libMarvellWireless"   remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/libprebuilt" name="android_hardware_marvell_libprebuilt"   remote="pxa1908-devices" revision="lineage-14.1"    />
-		<project path="hardware/marvell/audio"           name="android_hardware_marvell_audio"           remote="pxa1908-devices" revision="lineage-14.1"    />
+		<project path="hardware/marvell/audio"           name="android_hardware_marvell_audio"           remote="pxa1908-devices" revision="lineage-15.0"    />
         <project path="hardware/marvell/bootimage"       name="android_hardware_marvell_bootimage"       remote="pxa1908-devices" revision="lineage-14.1"    />
         <project path="hardware/marvell/media"           name="android_hardware_marvell_media"           remote="pxa1908-devices" revision="lineage-14.1"    />
-        <project path="hardware/marvell/keymaster"       name="android_hardware_marvell_keymaster"       remote="pxa1908-devices" revision="lineage-14.1"    />
-        <project path="hardware/marvell/gps"             name="android_hardware_marvell_gps"             remote="pxa1908-devices" revision="lineage-14.1"    />
+        <project path="hardware/marvell/keymaster"       name="android_hardware_marvell_keymaster"       remote="pxa1908-devices" revision="lineage-15.0"    />
+        <project path="hardware/marvell/gps"             name="android_hardware_marvell_gps"             remote="pxa1908-devices" revision="lineage-15.0"    />
         <!-- Vendor sepolicy -->
         <project path="vendor/cm/sepolicy/marvell"       name="android_vendor_cm_sepolicy_marvell"      remote="pxa1908-devices" revision="lineage-14.1"    />
         <!-- Vendor libs -->

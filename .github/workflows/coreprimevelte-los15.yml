@@ -84,6 +84,8 @@ jobs:
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         rm -rf hardware/marvell/wlan
         git clone https://github.com/Nemirtingas/android_hardware_marvell_wlan -b lineage-14.1 hardware/marvell/wlan
+        rm -rf hardware/samsung
+        git clone https://github.com/pxa1908-devices/android_hardware_samsung -b lineage-15.0 hardware/samsung
         find hardware/marvell/audio -name "Android.mk" -exec sed -i 's/include $(BUILD_SHARED_LIBRARY)/LOCAL_CFLAGS += -Wno-error -Wno-gnu-designator -Wno-unused-variable -Wno-unused-function\ninclude $(BUILD_SHARED_LIBRARY)/g' {} +
         find kernel/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} +
         find out/ -name "sigcontext.h" -exec sed -i 's/__uint128_t vregs\[32\];/struct { __u64 a; __u64 b; } vregs\[32\];/g' {} + 2>/dev/null || true

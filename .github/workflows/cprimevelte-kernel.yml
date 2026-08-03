@@ -99,7 +99,7 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch lineage_coreprimevelte-userdebug
-        make -j$(nproc --all) bootimage
+        make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
     - name: Uploading TWRP builds

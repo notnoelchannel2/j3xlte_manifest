@@ -47,7 +47,7 @@ jobs:
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b lineage-15.1
         curl --create-dirs -L -o .repo/local_manifests/j2lte_lineage-15.1.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/j2lte_lineage-15.1.xml
-        sudo git clone --depth 1 --branch android-7.1.2_r39 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 /opt/toolchains/aarch64-linux-android-4.9/
+        sudo git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Cleaning up even more

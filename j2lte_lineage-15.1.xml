@@ -5,7 +5,7 @@
     <project name="notnoelchannel2/android_device_samsung_exynos3475-common" remote="github" revision="lineage-15.1" path="device/samsung/exynos3475-common"/>
 
     <!--Kernel Source-->
-    <project name="notnoelchannel2/android_kernel_samsung_exynos3475" remote="github" revision="lineage-15.1" path="kernel/samsung/exynos3475"/>
+    <project name="notnoelchannel2/android_kernel_samsung_exynos3475" remote="github" revision="lineage-15.1" path="kernel/samsung/exynos3475-common"/>
 
     <!--Proprietary Blobs-->
     <project name="Exynos3475/android_vendor_samsung" remote="github" revision="cm-14.1" path="vendor/samsung"/>

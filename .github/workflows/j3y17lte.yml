@@ -56,6 +56,8 @@ jobs:
         OLDJAVAHOME=$JAVA_HOME
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
+        cd ~/lineage/kernel/samsung/exynos7570
+        make mrproper
         cd ~/lineage
         rm -rf ~/lineage/.repo
         rm -rf external/chromium-webview/

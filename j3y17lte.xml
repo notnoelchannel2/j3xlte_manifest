@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <!-- Device -->
+    <project name="Exynos7570/android_device_samsung_j3y17lte" remote="github" revision="lineage-16.0" path="device/samsung/j3y17lte"/>
+    <project name="Exynos7570/android_device_samsung_exynos7570-common" remote="github" revision="lineage-16.0" path="device/samsung/exynos7570-common"/>
+
+    <!--Kernel Source-->
+    <project name="Exynos7570/android_kernel_samsung_exynos7570" remote="github" revision="lineage-16.0" path="kernel/samsung/exynos3475"/>
+
+    <!--Proprietary Blobs-->
+    <project name="Exynos7570/proprietary_vendor_samsung_j3y17lte" remote="github" revision="lineage-16.0" path="vendor/samsung/j3y17lte"/>
+
+    <!--hardware trees-->
+    <project name="Exynos7570/android_hardware_samsung_slsi-cm_exynos7570" path="hardware/samsung_slsi-cm/exynos7570" remote="github" revision="lineage-16.0" />
+    <project name="Exynos7570/android_hardware_samsung_slsi-cm_exynos" path="hardware/samsung_slsi-cm/exynos" remote="github" revision="lineage-16.0" />
+    <project name="Exynos7870/android_hardware_samsung_slsi-cm_exynos5" path="hardware/samsung_slsi-cm/exynos5" remote="github" revision="lineage-16.0" />
+    <project name="Exynos7870/android_hardware_samsung_slsi-cm_openmax" path="hardware/samsung_slsi-cm/openmax" remote="github" revision="lineage-16.0" />
+    <project name="LineageOS/android_hardware_samsung" path="hardware/samsung" remote="github" revision="lineage-16.0" />
+    <project name="LineageOS/android_packages_resources_devicesettings" path="packages/resources/devicesettings" remote="github" />
+</manifest>

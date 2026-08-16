@@ -5,7 +5,7 @@
     <project name="Exynos7570/android_device_samsung_exynos7570-common" remote="github" revision="lineage-16.0" path="device/samsung/exynos7570-common"/>
 
     <!--Kernel Source-->
-    <project name="Exynos7570/android_kernel_samsung_exynos7570" remote="github" revision="lineage-16.0" path="kernel/samsung/exynos3475"/>
+    <project name="Exynos7570/android_kernel_samsung_exynos7570" remote="github" revision="lineage-16.0" path="kernel/samsung/exynos7570"/>
 
     <!--Proprietary Blobs-->
     <project name="Exynos7570/proprietary_vendor_samsung_j3y17lte" remote="github" revision="lineage-16.0" path="vendor/samsung/j3y17lte"/>

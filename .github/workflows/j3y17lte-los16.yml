@@ -71,6 +71,8 @@ jobs:
         export KBUILD_BUILD_HOST=unlegacy-devices
         export ANDROID_MAJOR_VERSION=p
         python -V
+        rm -rf out/target/product/j3y17lte/recovery.img
+        rm -rf out/target/product/j3y17lte/obj/RECOVERY
         lunch lineage_j3y17lte-eng
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH

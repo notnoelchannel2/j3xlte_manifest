@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <!-- A3 series -->
+    <project path="device/samsung/rossa-common" name="notnoelchannel2/android_device_samsung_rossa-common" revision="cm-13.0" remote="github" />
+    <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" revision="cm-13.0" remote="github" />
+
+    <!-- Kernels -->
+    <project path="kernel/samsung/msm8916" name="notnoelchannel2/android_kernel_samsung_rossa" revision="master" remote="github" />
+
+    <!-- Vendor -->
+    <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" revision="cm-13.0" remote="github" />
+
+    <!-- Common device repos -->
+    <project path="device/samsung/qcom-common" name="CyanogenMod/android_device_samsung_qcom-common" revision="cm-13.0" remote="github" />
+    <project path="device/qcom/common" name="CyanogenMod/android_device_qcom_common" revision="cm-13.0" remote="github" />
+
+    <!-- Hardware -->
+    <project path="hardware/samsung" name="CyanogenMod/android_hardware_samsung" revision="cm-13.0" remote="github" />
+
+    <!-- Other libs -->
+	<project path="external/stlport" name="CyanogenMod/android_external_stlport" revision="cm-13.0" remote="github" />
+	<project path="external/sony/boringssl-compat" name="CyanogenMod/android_external_sony_boringssl-compat" revision="cm-13.0" remote="github" />
+    
+    <!-- BusyBox -->
+	<project path="external/busybox" name="CyanogenMod/android_external_busybox" revision="cm-13.0" remote="github" />
+
+</manifest>

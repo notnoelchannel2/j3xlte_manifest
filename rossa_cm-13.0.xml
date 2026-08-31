@@ -5,7 +5,7 @@
     <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" revision="cm-13.0" remote="github" />
 
     <!-- Kernels -->
-    <project path="kernel/samsung/msm8916" name="notnoelchannel2/android_kernel_samsung_rossa" revision="master" remote="github" />
+    <project path="kernel/samsung/msm8916" name="notnoelchannel2/android_kernel_samsung_rossa" revision="cm-13.0" remote="github" />
 
     <!-- Vendor -->
     <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" revision="cm-13.0" remote="github" />

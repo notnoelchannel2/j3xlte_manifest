@@ -62,6 +62,14 @@ jobs:
         sudo apt-get autoclean
         sudo journalctl --rotate
         sudo journalctl --vacuum-size=100M
+    - name: Patch missing ALAC/APE codec defines in audio HAL
+      run: |
+        cd ~/TWRP
+        F=hardware/qcom/audio-caf/msm8916/hal/audio_hw.c
+        if ! grep -q "SND_AUDIOCODEC_ALAC" hardware/qcom/audio-caf/msm8916/hal/audio_extn/audio_extn.h 2>/dev/null; then
+          sed -i '/#include <tinyalsa\/asoundlib.h>/a \
+        #ifndef SND_AUDIOCODEC_ALAC\n#define SND_AUDIOCODEC_ALAC 24\n#endif\n#ifndef SND_AUDIOCODEC_APE\n#define SND_AUDIOCODEC_APE 25\n#endif' "$F"
+        fi
     - name: Building LineageOS
       run: |
         git config --global user.email "you@example.com"

@@ -58,10 +58,6 @@ jobs:
         sudo journalctl --vacuum-size=100M
     - name: Building LineageOS
       run: |
-        OLDPATH=$PATH
-        OLDJAVAHOME=$JAVA_HOME
-        export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
-        export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP

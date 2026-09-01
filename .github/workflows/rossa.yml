@@ -72,6 +72,7 @@ jobs:
         export LC_ALL=C
         export ARCH=arm
         export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi-
+        export ANDROID_COMPILE_WITH_JACK=false
         lunch cm_rossa-userdebug
         m org.cyanogenmod.platform -j$(nproc --all)
         make -j$(nproc --all) otapackage

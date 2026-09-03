@@ -52,7 +52,7 @@ jobs:
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-14.1
-        curl --create-dirs -L -o .repo/local_manifests/rossa_cm-14.1.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/rossa_cm-13.0.xml
+        curl --create-dirs -L -o .repo/local_manifests/rossa_cm-14.1.xml -O -L https://raw.githubusercontent.com/notnoelchannel2/j3xlte_manifest/refs/heads/main/rossa_cm-14.1.xml
         sudo git clone --depth 1 --branch android-4.4.4_r2.0.1 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 /opt/toolchains/arm-eabi-4.7/
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
@@ -62,14 +62,6 @@ jobs:
         sudo apt-get autoclean
         sudo journalctl --rotate
         sudo journalctl --vacuum-size=100M
-    - name: Patch missing ALAC/APE codec defines in audio HAL
-      run: |
-        cd ~/TWRP
-        F=hardware/qcom/audio-caf/msm8916/hal/audio_hw.c
-        if ! grep -q "SND_AUDIOCODEC_ALAC" hardware/qcom/audio-caf/msm8916/hal/audio_extn/audio_extn.h 2>/dev/null; then
-          sed -i '/#include <tinyalsa\/asoundlib.h>/a \
-        #ifndef SND_AUDIOCODEC_ALAC\n#define SND_AUDIOCODEC_ALAC 24\n#endif\n#ifndef SND_AUDIOCODEC_APE\n#define SND_AUDIOCODEC_APE 25\n#endif' "$F"
-        fi
     - name: Building LineageOS
       run: |
         git config --global user.email "you@example.com"

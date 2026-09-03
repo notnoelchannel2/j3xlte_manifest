@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <project path="bootable/recovery-twrp" name="omnirom/android_bootable_recovery" remote="github" revision="android-7.1"/>
+    <project path="device/qcom/common" name="LineageOS/android_device_qcom_common" remote="github" revision="cm-14.1"/>
+    <!-- Device -->
+    <project name="notnoelchannel2/android_device_samsung_rossa" remote="github" revision="cm-14.1" path="device/samsung/rossa"/>
+    <project name="notnoelchannel2/android_device_samsung_rossa-common" remote="github" revision="cm-14.1" path="device/samsung/rossa-common"/>
+  
+    <!--Kernel Source-->
+    <project path="kernel/samsung/msm8916" name="notnoelchannel2/android_kernel_samsung_rossa" revision="cm-13.0" remote="github" />
+
+    <!--Proprietary Blobs-->
+    <project name="notnoelchannel2/android_vendor_samsung_rossa" remote="github" revision="cm-14.1" path="vendor/samsung/rossa"/>
+    <project name="notnoelchannel2/android_vendor_samsung_rossa-common" remote="github" revision="cm-14.1" path="vendor/samsung/rossa-common"/>
+
+    <!--hardware trees-->
+    <project path="device/samsung/msm8916-common" name="Galaxy-MSM8916/android_device_samsung_msm8916-common" remote="github" revision="cm-14.1"/>
+    <project path="device/samsung/qcom-common" name="LineageOS/android_device_samsung_qcom-common" remote="github" revision="cm-14.1"/>
+    <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="github" revision="cm-14.1"/>
+  
+    <!--other-->
+    <project path="external/busybox" name="LineageOS/android_external_busybox" remote="github" revision="cm-14.1"/>
+    <project path="external/sony/boringssl-compat" name="LineageOS/android_external_sony_boringssl-compat" remote="github" revision="cm-14.1"/>
+    <project path="external/stlport" name="LineageOS/android_external_stlport" remote="github" revision="cm-14.1"/>
+    <project path="external/Substratum" name="Galaxy-MSM8916/android_external_substratum" remote="github" revision="master"/>
+</manifest>

@@ -13,8 +13,6 @@ jobs:
     steps:
     - name: Check Out
       uses: actions/checkout@v7
-    - name: Cleanup
-      uses: rokibhasansagar/slimhub_actions@main
     - name: Installing JDK 7 + Build Dependencies
       run: |
         sudo dpkg --add-architecture i386
@@ -75,12 +73,11 @@ jobs:
         export ARCH=arm
         export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi-
         lunch lineage_rossa-userdebug
-        m org.cyanogenmod.platform -j$(nproc --all)
-        make -j$(nproc --all) otapackage
+        make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
     - name: Uploading LineageOS builds
       uses: actions/upload-artifact@v7
       with:
         name: lineageos
-        path: /home/runner/TWRP/out/target/product/rossa/*.zip
+        path: /home/runner/TWRP/out/target/product/rossa/*.img

@@ -67,7 +67,6 @@ jobs:
         cd ~/TWRP
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
-        git clone https://github.com/notnoelchannel2/android_device_samsung_msm8916-common -b cm-14.1 device/samsung/msm8916-common
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

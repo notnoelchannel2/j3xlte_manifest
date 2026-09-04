@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-    <project path="bootable/recovery-twrp" name="omnirom/android_bootable_recovery" remote="github" revision="android-7.1"/>
+    <project path="bootable/recovery-twrp" name="TeamWin/android_bootable_recovery" remote="github" revision="android-9.0"/>
     <project path="device/qcom/common" name="LineageOS/android_device_qcom_common" remote="github" revision="cm-14.1"/>
     <!-- Device -->
     <project name="notnoelchannel2/android_device_samsung_rossa" remote="github" revision="cm-14.1" path="device/samsung/rossa"/>
@@ -14,7 +14,7 @@
     <project name="notnoelchannel2/android_vendor_samsung_rossa-common" remote="github" revision="cm-14.1" path="vendor/samsung/rossa-common"/>
 
     <!--hardware trees-->
-    <project path="device/samsung/msm8916-common" name="Galaxy-MSM8916/android_device_samsung_msm8916-common" remote="github" revision="cm-14.1"/>
+    <project path="device/samsung/msm8916-common" name="notnoelchannel2/android_device_samsung_msm8916-common" remote="github" revision="cm-14.1"/>
     <project path="device/samsung/qcom-common" name="LineageOS/android_device_samsung_qcom-common" remote="github" revision="cm-14.1"/>
     <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="github" revision="cm-14.1"/>
   

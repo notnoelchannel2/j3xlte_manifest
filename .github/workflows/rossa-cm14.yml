@@ -67,51 +67,6 @@ jobs:
         sudo apt-get autoclean
         sudo journalctl --rotate
         sudo journalctl --vacuum-size=100M
-    
-    - name: Patch missing MSM_VIDC color enums
-      run: |
-        cd ~/TWRP
-        PATCH='#ifndef MSM_VIDC_UNSPECIFIED
-        enum {
-            MSM_VIDC_BT709_5 = 1,
-            MSM_VIDC_UNSPECIFIED = 2,
-            MSM_VIDC_BT470_6_M = 4,
-            MSM_VIDC_BT601_6_625 = 5,
-            MSM_VIDC_BT601_6_525 = 6,
-            MSM_VIDC_GENERIC_FILM = 8,
-            MSM_VIDC_BT2020 = 9,
-        };
-        enum {
-            MSM_VIDC_TRANSFER_BT709_5 = 1,
-            MSM_VIDC_TRANSFER_UNSPECIFIED = 2,
-            MSM_VIDC_TRANSFER_BT_470_6_M = 4,
-            MSM_VIDC_TRANSFER_BT_470_6_BG = 5,
-            MSM_VIDC_TRANSFER_601_6_525 = 6,
-            MSM_VIDC_TRANSFER_SMPTE_240M = 7,
-            MSM_VIDC_TRANSFER_LINEAR = 8,
-            MSM_VIDC_TRANSFER_IEC_61966 = 11,
-            MSM_VIDC_TRANSFER_BT_1361 = 12,
-            MSM_VIDC_TRANSFER_SRGB = 13,
-        };
-        enum {
-            MSM_VIDC_MATRIX_BT_709_5 = 1,
-            MSM_VIDC_MATRIX_FCC_47 = 4,
-            MSM_VIDC_MATRIX_601_6_625 = 5,
-        };
-        #endif
-        '
-        for f in \
-          hardware/qcom/media-caf/msm8916/mm-video-v4l2/vidc/vdec/src/omx_vdec_msm8974.cpp \
-          hardware/qcom/media-caf/msm8916/mm-video-v4l2/vidc/venc/src/video_encoder_device_v4l2.cpp
-        do
-          if [ -f "$f" ]; then
-            echo "$PATCH" | cat - "$f" > /tmp/patched.cpp && mv /tmp/patched.cpp "$f"
-            echo "Patched $f"
-          else
-            echo "WARNING: $f not found, skipping"
-          fi
-        done
-
     - name: Patch kernel msm_vidc.h with missing HDR/color definitions
       run: |
         cd ~/TWRP

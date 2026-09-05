@@ -1,4 +1,4 @@
-name: LineageOS 13 CI (SM-G360F)
+name: LineageOS 14.1 Recovery CI (SM-G360F)
 
 on:
   workflow_dispatch:
@@ -76,7 +76,7 @@ jobs:
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
-    - name: Uploading LineageOS builds
+    - name: Uploading LineageOS Recovery builds
       uses: actions/upload-artifact@v7
       with:
         name: lineageos

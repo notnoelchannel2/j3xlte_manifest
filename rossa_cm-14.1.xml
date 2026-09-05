@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-    <project path="bootable/recovery-twrp" name="TeamWin/android_bootable_recovery" remote="github" revision="android-9.0"/>
+    <project path="bootable/recovery-twrp" name="TeamWin/android_bootable_recovery" remote="github" revision="android-7.1"/>
     <project path="device/qcom/common" name="LineageOS/android_device_qcom_common" remote="github" revision="cm-14.1"/>
     <!-- Device -->
     <project name="notnoelchannel2/android_device_samsung_rossa" remote="github" revision="cm-14.1" path="device/samsung/rossa"/>

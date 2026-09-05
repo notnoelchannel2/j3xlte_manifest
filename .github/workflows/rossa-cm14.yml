@@ -64,6 +64,7 @@ jobs:
         sudo journalctl --vacuum-size=100M
     - name: Patch missing MSM_VIDC color enums
       run: |
+        cd ~/TWRP
         PATCH='#ifndef MSM_VIDC_UNSPECIFIED
         enum {
             MSM_VIDC_BT709_5 = 1,

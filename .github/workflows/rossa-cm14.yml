@@ -13,8 +13,10 @@ jobs:
     steps:
     - name: Check Out
       uses: actions/checkout@v7
+    
     - name: Cleanup
       uses: rokibhasansagar/slimhub_actions@main
+    
     - name: Installing JDK 7 + Build Dependencies
       run: |
         sudo dpkg --add-architecture i386
@@ -40,11 +42,13 @@ jobs:
         sudo make altinstall
         sudo ln -sf /usr/local/bin/python2.7 /usr/bin/python2
         sudo ln -sf /usr/local/bin/python2.7 /usr/bin/python
+    
     - name: Install OpenJDK
       uses: actions/setup-java@v3
       with:
         distribution: 'zulu'
         java-version: '8'
+    
     - name: Syncing LineageOS sources
       run: |
         mkdir ~/TWRP
@@ -56,12 +60,14 @@ jobs:
         sudo git clone --depth 1 --branch android-4.4.4_r2.0.1 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 /opt/toolchains/arm-eabi-4.7/
         git lfs install
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+    
     - name: Cleaning up even more
       run: |
         sudo du -sh /var/cache/apt/archives
         sudo apt-get autoclean
         sudo journalctl --rotate
         sudo journalctl --vacuum-size=100M
+    
     - name: Patch missing MSM_VIDC color enums
       run: |
         cd ~/TWRP
@@ -105,6 +111,122 @@ jobs:
             echo "WARNING: $f not found, skipping"
           fi
         done
+
+    - name: Patch kernel msm_vidc.h with missing HDR/color definitions
+      run: |
+        cd ~/TWRP
+        FILE=$(find . -path "*/uapi/media/msm_vidc.h" -not -path "./out/*" | head -n1)
+        if [ -z "$FILE" ]; then
+          echo "ERROR: could not locate uapi/media/msm_vidc.h in kernel source"
+          exit 1
+        fi
+        echo "Patching $FILE"
+
+        # 1. Add the two missing extradata type values into the existing enum
+        sed -i "s/MSM_VIDC_EXTRADATA_METADATA_MBI = 0x7F100005,/MSM_VIDC_EXTRADATA_METADATA_MBI = 0x7F100005,\n\tMSM_VIDC_EXTRADATA_VPX_COLORSPACE_INFO = 0x00000014,\n\tMSM_VIDC_EXTRADATA_VUI_DISPLAY_INFO = 0x7F100006,/" "$FILE"
+
+        # 2. Drop the trailing #endif so we can append new content before it
+        sed -i '$ d' "$FILE"
+
+        # 3. Append the missing structs, enums, and V4L2 control ID stubs
+        cat >> "$FILE" << 'HEADER_PATCH'
+        struct msm_vidc_vc1_seqdisp_payload {
+            unsigned int prog_seg_format;
+            unsigned int uv_sampl_fmt;
+            unsigned int color_format;
+            unsigned int color_primaries;
+            unsigned int transfer_char;
+            unsigned int matrix_coeffs;
+            unsigned int aspect_ratio;
+            unsigned int aspect_horiz;
+            unsigned int aspect_vert;
+        };
+        struct msm_vidc_vpx_colorspace_payload {
+            unsigned int color_space;
+            unsigned int yuv_range_flag;
+            unsigned int sumsampling_x;
+            unsigned int sumsampling_y;
+        };
+        struct msm_vidc_vui_display_info_payload {
+            unsigned int video_signal_present_flag;
+            unsigned int video_format;
+            unsigned int bit_depth_y;
+            unsigned int bit_depth_c;
+            unsigned int video_full_range_flag;
+            unsigned int color_description_present_flag;
+            unsigned int color_primaries;
+            unsigned int transfer_characteristics;
+            unsigned int matrix_coefficients;
+            unsigned int chroma_location_info_present_flag;
+            unsigned int chroma_format_idc;
+            unsigned int separate_color_plane_flag;
+            unsigned int chroma_sample_loc_type_top_field;
+            unsigned int chroma_sample_loc_type_bottom_field;
+        };
+        enum msm_vidc_h264_color_primaries_values {
+            MSM_VIDC_RESERVED_1 = 0,
+            MSM_VIDC_BT709_5 = 1,
+            MSM_VIDC_UNSPECIFIED = 2,
+            MSM_VIDC_RESERVED_2 = 3,
+            MSM_VIDC_BT470_6_M = 4,
+            MSM_VIDC_BT601_6_625 = 5,
+            MSM_VIDC_BT470_6_BG = MSM_VIDC_BT601_6_625,
+            MSM_VIDC_BT601_6_525 = 6,
+            MSM_VIDC_SMPTE_240M = 7,
+            MSM_VIDC_GENERIC_FILM = 8,
+            MSM_VIDC_BT2020 = 9,
+        };
+        enum msm_vidc_h264_matrix_coeff_values {
+            MSM_VIDC_MATRIX_RGB = 0,
+            MSM_VIDC_MATRIX_BT_709_5 = 1,
+            MSM_VIDC_MATRIX_UNSPECIFIED = 2,
+            MSM_VIDC_MATRIX_RESERVED = 3,
+            MSM_VIDC_MATRIX_FCC_47 = 4,
+            MSM_VIDC_MATRIX_601_6_625 = 5,
+            MSM_VIDC_MATRIX_BT470_BG = MSM_VIDC_MATRIX_601_6_625,
+            MSM_VIDC_MATRIX_601_6_525 = 6,
+            MSM_VIDC_MATRIX_SMPTE_170M = MSM_VIDC_MATRIX_601_6_525,
+            MSM_VIDC_MATRIX_SMPTE_240M = 7,
+            MSM_VIDC_MATRIX_Y_CG_CO = 8,
+            MSM_VIDC_MATRIX_BT_2020 = 9,
+            MSM_VIDC_MATRIX_BT_2020_CONST = 10,
+        };
+        enum msm_vidc_h264_transfer_chars_values {
+            MSM_VIDC_TRANSFER_RESERVED_1 = 0,
+            MSM_VIDC_TRANSFER_BT709_5 = 1,
+            MSM_VIDC_TRANSFER_UNSPECIFIED = 2,
+            MSM_VIDC_TRANSFER_RESERVED_2 = 3,
+            MSM_VIDC_TRANSFER_BT_470_6_M = 4,
+            MSM_VIDC_TRANSFER_BT_470_6_BG = 5,
+            MSM_VIDC_TRANSFER_601_6_625 = 6,
+            MSM_VIDC_TRANSFER_601_6_525 = MSM_VIDC_TRANSFER_601_6_625,
+            MSM_VIDC_TRANSFER_SMPTE_240M = 7,
+            MSM_VIDC_TRANSFER_LINEAR = 8,
+            MSM_VIDC_TRANSFER_LOG_100_1 = 9,
+            MSM_VIDC_TRANSFER_LOG_100_SQRT10_1 = 10,
+            MSM_VIDC_TRANSFER_IEC_61966 = 11,
+            MSM_VIDC_TRANSFER_BT_1361 = 12,
+            MSM_VIDC_TRANSFER_SRGB = 13,
+            MSM_VIDC_TRANSFER_BT_2020_10 = 14,
+            MSM_VIDC_TRANSFER_BT_2020_12 = 15,
+        };
+        /* Not implemented by this kernel's vidc driver - stubbed only so
+         * userspace compiles. These ioctls will no-op / return EINVAL
+         * at runtime until a matching V4L2 vidc driver exists. */
+        #ifndef V4L2_CID_MPEG_VIDC_VIDEO_VPE_CSC
+        #define V4L2_CID_MPEG_VIDC_VIDEO_VPE_CSC (V4L2_CID_MPEG_BASE + 0x2100)
+        #define V4L2_CID_MPEG_VIDC_VIDEO_VPE_CSC_ENABLE 1
+        #define V4L2_CID_MPEG_VIDC_VIDEO_COLOR_SPACE (V4L2_CID_MPEG_BASE + 0x2101)
+        #define V4L2_CID_MPEG_VIDC_VIDEO_FULL_RANGE (V4L2_CID_MPEG_BASE + 0x2102)
+        #define V4L2_CID_MPEG_VIDC_VIDEO_TRANSFER_CHARS (V4L2_CID_MPEG_BASE + 0x2103)
+        #define V4L2_CID_MPEG_VIDC_VIDEO_MATRIX_COEFFS (V4L2_CID_MPEG_BASE + 0x2104)
+        #endif
+        #endif
+        HEADER_PATCH
+
+        echo "Kernel header patched successfully:"
+        tail -20 "$FILE"
+        
     - name: Building LineageOS
       run: |
         git config --global user.email "you@example.com"
@@ -122,6 +244,7 @@ jobs:
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
+        
     - name: Uploading LineageOS builds
       uses: actions/upload-artifact@v7
       with:

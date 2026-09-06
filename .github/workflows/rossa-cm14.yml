@@ -184,14 +184,25 @@ jobs:
     - name: Patch v4l2-controls.h with missing VIDC extradata types
       run: |
         cd ~/TWRP
-        FILE=$(find . -path "*/uapi/linux/v4l2-controls.h" -not -path "./out/*" | head -n1)
-        if [ -z "$FILE" ]; then
-          echo "ERROR: could not locate uapi/linux/v4l2-controls.h in kernel source"
-          exit 1
-        fi
-        echo "Patching $FILE"
-        sed -i 's/V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21,/V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21,\n\tV4L2_MPEG_VIDC_EXTRADATA_VPX_COLORSPACE = 22,\n\tV4L2_MPEG_VIDC_EXTRADATA_VUI_DISPLAY = 23,/' "$FILE"
-        grep -n "V4L2_MPEG_VIDC_EXTRADATA" "$FILE"
+        # Find ALL instances of the header (excluding the out directory) and patch them
+        for FILE in $(find . -path "*/uapi/linux/v4l2-controls.h" -not -path "*/out/*"); do
+          echo "Checking $FILE"
+          
+          # Check if already patched
+          if grep -q "V4L2_MPEG_VIDC_EXTRADATA_VUI_DISPLAY" "$FILE"; then
+            echo "Already patched: $FILE"
+            
+          # Primary patch strategy (using METADATA_MBI as anchor)
+          elif grep -q "V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21," "$FILE"; then
+            echo "Patching $FILE (using METADATA_MBI anchor)"
+            sed -i 's/V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21,/V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21,\n\tV4L2_MPEG_VIDC_EXTRADATA_VPX_COLORSPACE = 22,\n\tV4L2_MPEG_VIDC_EXTRADATA_VUI_DISPLAY = 23,/' "$FILE"
+            
+          # Fallback patch strategy (using VC1_SEQDISP as anchor, which the error log confirms exists)
+          elif grep -q "V4L2_MPEG_VIDC_EXTRADATA_VC1_SEQDISP = 4," "$FILE"; then
+            echo "Patching $FILE (using VC1_SEQDISP anchor)"
+            sed -i 's/V4L2_MPEG_VIDC_EXTRADATA_VC1_SEQDISP = 4,/V4L2_MPEG_VIDC_EXTRADATA_VC1_SEQDISP = 4,\n\tV4L2_MPEG_VIDC_EXTRADATA_VPX_COLORSPACE = 22,\n\tV4L2_MPEG_VIDC_EXTRADATA_VUI_DISPLAY = 23,/' "$FILE"
+          fi
+        done
     - name: Building LineageOS
       run: |
         git config --global user.email "you@example.com"

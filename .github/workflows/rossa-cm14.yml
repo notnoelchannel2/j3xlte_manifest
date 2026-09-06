@@ -181,7 +181,16 @@ jobs:
 
         echo "Kernel header patched successfully:"
         tail -20 "$FILE"
-        
+    - name: Patch v4l2-controls.h with missing VIDC extradata types
+      run: |
+        FILE=$(find . -path "*/uapi/linux/v4l2-controls.h" -not -path "./out/*" | head -n1)
+        if [ -z "$FILE" ]; then
+          echo "ERROR: could not locate uapi/linux/v4l2-controls.h in kernel source"
+          exit 1
+        fi
+        echo "Patching $FILE"
+        sed -i 's/V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21,/V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI = 21,\n\tV4L2_MPEG_VIDC_EXTRADATA_VPX_COLORSPACE = 22,\n\tV4L2_MPEG_VIDC_EXTRADATA_VUI_DISPLAY = 23,/' "$FILE"
+        grep -n "V4L2_MPEG_VIDC_EXTRADATA" "$FILE"
     - name: Building LineageOS
       run: |
         git config --global user.email "you@example.com"

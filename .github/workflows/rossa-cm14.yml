@@ -183,6 +183,7 @@ jobs:
         tail -20 "$FILE"
     - name: Patch v4l2-controls.h with missing VIDC extradata types
       run: |
+        cd ~/TWRP
         FILE=$(find . -path "*/uapi/linux/v4l2-controls.h" -not -path "./out/*" | head -n1)
         if [ -z "$FILE" ]; then
           echo "ERROR: could not locate uapi/linux/v4l2-controls.h in kernel source"

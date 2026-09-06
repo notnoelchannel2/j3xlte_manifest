@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<project path="hardware/samsung" name="LineageOS/android_hardware_samsung" revision="lineage-15.1" />
+	<project path="bootable/recovery-twrp" name="omnirom/android_bootable_recovery" revision="android-8.1" />
+
+	<project path="device/samsung/gtexswifi" name="gtexswifi-lineage/android_device_samsung_gtexswifi" revision="lineage-15.1" />
+	<project path="kernel/samsung/gtexswifi" name="gtexswifi-lineage/android_kernel_samsung_gtexswifi" revision="lineage-15.1" />
+	<project path="vendor/samsung/common" name="underscoremone/proprietary_vendor_samsung_gtexswifi" revision="cm-14.1" />
+	<project path="hardware/sprd" name="gtexswifi-lineage/android_vendor_sprd" revision="lineage-15.1" />
+</manifest>

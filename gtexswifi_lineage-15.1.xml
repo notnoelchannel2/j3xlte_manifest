@@ -6,5 +6,5 @@
 	<project path="device/samsung/gtexswifi" name="gtexswifi-lineage/android_device_samsung_gtexswifi" revision="lineage-15.1" />
 	<project path="kernel/samsung/gtexswifi" name="gtexswifi-lineage/android_kernel_samsung_gtexswifi" revision="lineage-15.1" />
 	<project path="vendor/samsung/common" name="underscoremone/proprietary_vendor_samsung_gtexswifi" revision="cm-14.1" />
-	<project path="hardware/sprd" name="gtexswifi-lineage/android_vendor_sprd" revision="lineage-15.1" />
+	<project path="hardware/sprd" name="gtexswifi-lineage/android_hardware_sprd" revision="lineage-15.1" />
 </manifest>

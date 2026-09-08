@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<project path="external/stlport" name="LineageOS/android_external_stlport" remote="github" revision="cm-14.1"/>
+	<project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="github" revision="cm-14.1"/>
+	<project path="device/lenovo/sprd-common" name="a1000-los/android_device_lenovo_sprd-common" remote="github" revision="cm-14.1"/>
+	<project path="device/lenovo/a1000" name="a1000-los/android_device_lenovo_a1000" remote="github" revision="cm-14.1"/>
+	<project path="device/lenovo/scx30g2-common" name="a1000-los/android_vendor_lenovo_scx30g2-common" remote="github" revision="cm-14.1"/>
+	<project path="device/lenovo/scx35-common" name="a1000-los/android_device_lenovo_scx35-common" remote="github" revision="cm-14.1"/>
+	<project path="hardware/sprd" name="a1000-los/android_hardware_sprd" remote="github" revision="cm-14.1"/>
+	<project path="kernel/lenovo/a1000" name="Breead1337/lenovoa1000kernel3.10sourceENHANCED" remote="github" revision="main"/>
+	<project path="vendor/lenovo/a1000" name="a1000-los/android_vendor_lenovo_a1000" remote="github" revision="cm-14.1"/>
+	<project path="vendor/lenovo/scx30g2-common" name="a1000-los/android_vendor_lenovo_scx30g2-common" remote="github" revision="cm-14.1"/>
+</manifest>

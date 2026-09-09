@@ -67,6 +67,10 @@ jobs:
         cd ~/TWRP
         rm -rf external/chromium-webview/
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
+        rm -rf ~/TWRP/build
+        git clone https://github.com/gtexswifi-lineage/android_build -b lineage-15.1 build
+        rm -rf ~/TWRP/system/core
+        git clone https://github.com/gtexswifi-lineage/android_system_core -b lineage-15.1 system/core
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

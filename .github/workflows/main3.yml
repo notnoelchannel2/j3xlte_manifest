@@ -70,13 +70,12 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
-        lunch lineage_a1000-userdebug
-        m org.cyanogenmod.platform -j$(nproc --all)
-        make -j$(nproc --all) otapackage
+        lunch lineage_a1000-eng
+        make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
     - name: Uploading LineageOS builds
       uses: actions/upload-artifact@v7
       with:
         name: lineageos
-        path: /home/runner/TWRP/out/target/product/a1000/*.zip
+        path: /home/runner/TWRP/out/target/product/a1000/recovery.img

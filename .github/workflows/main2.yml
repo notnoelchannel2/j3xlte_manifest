@@ -72,6 +72,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
+        export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-
         lunch lineage_gtexswifi-userdebug
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH

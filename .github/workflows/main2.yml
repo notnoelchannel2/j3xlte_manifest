@@ -73,7 +73,7 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch lineage_gtexswifi-userdebug
-        make -j$(nproc --all) otapackage
+        make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
     - name: Uploading LineageOS builds

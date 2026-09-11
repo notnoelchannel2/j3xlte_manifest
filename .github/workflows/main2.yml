@@ -69,6 +69,8 @@ jobs:
         git clone https://github.com/LineageOS/android_external_chromium-webview external/chromium-webview/
         rm -rf ~/TWRP/system/core
         git clone https://github.com/gtexswifi-lineage/android_system_core -b lineage-15.1 system/core
+        mkdir -p ~/TWRP/prebuilts/gcc/linux-x86/arm
+        ln -sfn /opt/toolchains/arm-eabi-4.8 ~/TWRP/prebuilts/gcc/linux-x86/arm/arm-eabi-7.5
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C

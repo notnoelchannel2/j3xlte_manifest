@@ -19,6 +19,7 @@
     <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="github" revision="cm-14.1"/>
   
     <!--other-->
+    <project path="packages/resources/devicesettings" name="LineageOS/android_packages_resources_devicesettings" remote="github" revision="cm-14.1"/>
     <project path="external/busybox" name="LineageOS/android_external_busybox" remote="github" revision="cm-14.1"/>
     <project path="external/sony/boringssl-compat" name="LineageOS/android_external_sony_boringssl-compat" remote="github" revision="cm-14.1"/>
     <project path="external/stlport" name="LineageOS/android_external_stlport" remote="github" revision="cm-14.1"/>

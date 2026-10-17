@@ -66,7 +66,6 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP
-        bash device/samsung/ancora/apply-patches.sh
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack
         rm -rf external/chromium-webview/

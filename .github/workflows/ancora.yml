@@ -62,9 +62,11 @@ jobs:
         OLDJAVAHOME=$JAVA_HOME
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
+        export ANCORA_BUILD_ROOT=~/TWRP
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         cd ~/TWRP
+        bash device/samsung/ancora/apply-patches.sh
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack-admin
         sed -i 's/--no-proxy/--noproxy/g' prebuilts/sdk/tools/jack
         rm -rf external/chromium-webview/

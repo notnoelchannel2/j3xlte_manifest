@@ -5,7 +5,7 @@
 
 	<project path="device/samsung/ancora" name="MSM8225T-Oreo/android_device_samsung_ancora" revision="lineage-15.1" />
 	<project path="kernel/samsung/msm7x30-common" name="MSM8225T-Oreo/android_kernel_samsung_msm7x30-common" revision="lineage-15.1" />
-	<project path="vendor/samsung/ancora" name="MSM8225T-Oreo/android_vendor_samsung_ancora" revision="cm-14.1" />
+	<project path="vendor/samsung/ancora" name="MSM8225T-Oreo/android_vendor_samsung_ancora" revision="lineage-15.1" />
 	<project path="hardware/qcom/media-caf" name="MSM8225T-Oreo/android_hardware_qcom_media-caf" revision="lineage-15.1" />
   	<project path="hardware/qcom/display-caf" name="MSM8225T-Oreo/android_hardware_qcom_display-caf" revision="lineage-15.1" />
   	<project path="hardware/qcom/audio-caf" name="MSM8225T-Oreo/android_hardware_qcom_audio-caf" revision="lineage-15.1" />

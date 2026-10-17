@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 	<project path="hardware/samsung" name="LineageOS/android_hardware_samsung" revision="lineage-15.1" />
-  <project path="hardware/broadcom/libbt" name="LineageOS/android_hardware_broadcom_libbt" revision="lineage-15.1" />
+  	<project path="hardware/broadcom/libbt" name="LineageOS/android_hardware_broadcom_libbt" revision="lineage-15.1" />
 	<project path="bootable/recovery-twrp" name="omnirom/android_bootable_recovery" revision="android-8.1" />
 
 	<project path="device/samsung/ancora" name="MSM8225T-Oreo/android_device_samsung_ancora" revision="lineage-15.1" />
 	<project path="kernel/samsung/msm7x30-common" name="MSM8225T-Oreo/android_kernel_samsung_msm7x30-common" revision="lineage-15.1" />
 	<project path="vendor/samsung/ancora" name="MSM8225T-Oreo/android_vendor_samsung_ancora" revision="cm-14.1" />
 	<project path="hardware/qcom/media-caf" name="MSM8225T-Oreo/android_hardware_qcom_media-caf" revision="lineage-15.1" />
-  <project path="hardware/qcom/display-caf" name="MSM8225T-Oreo/android_hardware_qcom_display-caf" revision="lineage-15.1" />
-  <project path="hardware/qcom/audio-caf" name="MSM8225T-Oreo/android_hardware_qcom_audio-caf" revision="lineage-15.1" />
+  	<project path="hardware/qcom/display-caf" name="MSM8225T-Oreo/android_hardware_qcom_display-caf" revision="lineage-15.1" />
+  	<project path="hardware/qcom/audio-caf" name="MSM8225T-Oreo/android_hardware_qcom_audio-caf" revision="lineage-15.1" />
 </manifest>

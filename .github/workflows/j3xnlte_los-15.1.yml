@@ -76,7 +76,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
-        lunch lineage_j3xnlte-userdebug
+        lunch lineage_j3xlte-userdebug
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
@@ -84,4 +84,4 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: lineageos
-        path: /home/runner/TWRP/out/target/product/j3xnlte/*.zip
+        path: /home/runner/TWRP/out/target/product/j3xlte/*.zip

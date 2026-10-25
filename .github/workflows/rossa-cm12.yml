@@ -152,7 +152,7 @@ jobs:
             cd /cm
             source build/envsetup.sh
             lunch cm_rossa-userdebug
-            make -j$(nproc --all) recoveryimage
+            make -j$(nproc --all) otapackage
           '
 
       - name: Collect output
@@ -160,8 +160,7 @@ jobs:
         run: |
           sudo chown -R $USER:$USER /mnt/cm/out/target/product/rossa
           mkdir -p out
-          cp /mnt/cm/out/target/product/rossa/boot.img out/
-          cp /mnt/cm/out/target/product/rossa/recovery.img out/
+          cp /mnt/cm/out/target/product/rossa/*.zip out/
           ls -lh out/
 
       - name: Upload build artifact

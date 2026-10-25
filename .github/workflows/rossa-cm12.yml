@@ -152,15 +152,14 @@ jobs:
             cd /cm
             source build/envsetup.sh
             lunch cm_rossa-userdebug
-            make -j$(nproc --all) otapackage
+            make -j$(nproc --all) recoveryimage
           '
 
       - name: Collect output
         if: success()
         run: |
           mkdir -p out
-          cp /mnt/cm/out/target/product/rossa/cm-12.1-*.zip out/
-          cp /mnt/cm/out/target/product/rossa/cm-12.1-*.zip.md5sum out/ 2>/dev/null || true
+          cp /mnt/cm/out/target/product/rossa/*.img out/
           ls -lh out/
 
       - name: Upload build artifact
@@ -176,5 +175,5 @@ jobs:
         with:
           tag_name: cm-12.1-rossa-${{ github.run_number }}
           name: CM 12.1 rossa (build ${{ github.run_number }})
-          body: Unofficial CM 12.1 build for Samsung rossa.
+          body: Unofficial CM 12.1 recovery image build for Samsung rossa.
           files: out/*

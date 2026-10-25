@@ -35,7 +35,7 @@ jobs:
         run: |
           export PATH=~/.bin:$PATH
           cd /mnt/cm
-          repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-12.1
+          repo init --depth=1 -u https://github.com/CyanogenMod/android.git -b cm-12.1
           mkdir -p .repo/local_manifests
           cat << 'EOF' > .repo/local_manifests/rossa.xml
           <?xml version="1.0" encoding="UTF-8"?>

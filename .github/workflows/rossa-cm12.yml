@@ -158,8 +158,10 @@ jobs:
       - name: Collect output
         if: success()
         run: |
+          sudo chown -R $USER:$USER /mnt/cm/out/target/product/rossa
           mkdir -p out
-          cp /mnt/cm/out/target/product/rossa/*.img out/
+          cp /mnt/cm/out/target/product/rossa/boot.img out/
+          cp /mnt/cm/out/target/product/rossa/recovery.img out/
           ls -lh out/
 
       - name: Upload build artifact

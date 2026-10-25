@@ -1,0 +1,173 @@
+name: CM 12.1 Build for Samsung rossa
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache
+          sudo docker image prune -af || true
+          # /mnt is a separate disk with much more free space, build there
+          sudo mkdir -p /mnt/cm
+          sudo chown -R $USER:$USER /mnt/cm
+          df -h / /mnt
+
+      - name: Install repo tool and git config (host)
+        run: |
+          mkdir -p ~/.bin
+          curl -s https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+          chmod a+x ~/.bin/repo
+          git config --global user.email "ci@example.com"
+          git config --global user.name "CM CI"
+          git config --global color.ui false
+
+      - name: Init CM 12.1 and write local manifest
+        run: |
+          export PATH=~/.bin:$PATH
+          cd /mnt/cm
+          repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-12.1
+          mkdir -p .repo/local_manifests
+          cat << 'EOF' > .repo/local_manifests/rossa.xml
+          <?xml version="1.0" encoding="UTF-8"?>
+          <manifest>
+              <remote name="gh" fetch="https://github.com/"/>
+
+              <!-- Device -->
+              <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" remote="gh" revision="cm-12.1"/>
+              <project path="kernel/samsung/rossa-caf" name="notnoelchannel2/android_kernel_samsung_rossa-caf" remote="gh" revision="APSS.FSM.3.0.r5.1.1"/>
+              <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="cm-12.1"/>
+
+              <!-- Hardware -->
+              <project path="hardware/qcom/display-caf/msm8916-old" name="Panyoujies/android_hardware_qcom_display-caf_msm8916" remote="gh" revision="master"/>
+              <project path="hardware/qcom/media-caf/msm8916-old" name="Panyoujies/android_hardware_qcom_media-caf_msm8916" remote="gh" revision="master"/>
+              <project path="hardware/qcom/audio-caf/msm8916-old" name="Panyoujies/android_hardware_qcom_audio-caf_msm8916" remote="gh" revision="master"/>
+
+              <!-- Common -->
+              <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="gh" revision="cm-12.1"/>
+              <project path="device/samsung/qcom-common" name="LineageOS/android_device_samsung_qcom-common" remote="gh" revision="cm-12.1"/>
+              <project path="device/qcom/common" name="LineageOS/android_device_qcom_common" remote="gh" revision="cm-12.1"/>
+          </manifest>
+          EOF
+
+      - name: Remove default projects that clash with local manifest paths
+        run: |
+          export PATH=~/.bin:$PATH
+          cd /mnt/cm
+          repo manifest > /tmp/full.xml
+          python3 - << 'EOF'
+          import xml.etree.ElementTree as ET
+          local = ET.parse('.repo/local_manifests/rossa.xml').getroot()
+          paths = {p.get('path') for p in local.findall('project')}
+          full = ET.parse('/tmp/full.xml').getroot()
+          removes = [p.get('name') for p in full.findall('project') if p.get('path') in paths]
+          for n in removes:
+              print('removing default project:', n)
+              ET.SubElement(local, 'remove-project', {'name': n})
+          # remove-project entries must come before the projects that replace them
+          items = list(local)
+          rem = [e for e in items if e.tag == 'remove-project']
+          rest = [e for e in items if e.tag != 'remove-project']
+          for e in items:
+              local.remove(e)
+          for e in rem + rest:
+              local.append(e)
+          ET.ElementTree(local).write('.repo/local_manifests/rossa.xml', encoding='utf-8', xml_declaration=True)
+          EOF
+          cat .repo/local_manifests/rossa.xml
+
+      - name: Sync sources
+        run: |
+          export PATH=~/.bin:$PATH
+          cd /mnt/cm
+          repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j8
+          df -h /mnt
+
+      - name: Fetch toolchain
+        run: |
+          cd /mnt/cm
+          # toolchain lives inside the mounted tree so the container can see it (/cm/toolchains/...)
+          mkdir -p toolchains
+          rm -rf toolchains/arm-eabi-4.7
+          git clone --depth 1 --branch android-4.4.4_r2.0.1 --single-branch \
+            https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 \
+            toolchains/arm-eabi-4.7
+
+      - name: Start Ubuntu 14.04 build container
+        run: |
+          docker run -d --name cm_build --privileged \
+            -v /mnt/cm:/cm \
+            -w /cm \
+            ubuntu:14.04 tail -f /dev/null
+
+      - name: Install build dependencies (JDK 7)
+        run: |
+          docker exec cm_build bash -c '
+            set -e
+            export DEBIAN_FRONTEND=noninteractive
+            # fall back to old-releases if trusty has been moved off the main archive
+            apt-get update || {
+              sed -i "s|http://archive.ubuntu.com|http://old-releases.ubuntu.com|g; s|http://security.ubuntu.com|http://old-releases.ubuntu.com|g" /etc/apt/sources.list
+              apt-get update
+            }
+            dpkg --add-architecture i386
+            apt-get update || true
+            apt-get install -y \
+              bc bison build-essential ccache curl flex g++-multilib gcc-multilib \
+              git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-gplv2-dev \
+              lib32z1-dev libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev \
+              libssl-dev libwxgtk2.8-dev libxml2 libxml2-utils lzop openjdk-7-jdk \
+              openjdk-7-jre pngcrush rsync schedtool squashfs-tools xsltproc zip \
+              zlib1g-dev python python-markdown unzip wget lzma
+          '
+
+      - name: Building CM 12.1
+        run: |
+          docker exec cm_build bash -c '
+            set -e
+            export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+            export PATH=$JAVA_HOME/bin:$PATH
+            export LC_ALL=C
+            export ALLOW_MISSING_DEPENDENCIES=true
+            export USE_CCACHE=1
+            export CROSS_COMPILE=/cm/toolchains/arm-eabi-4.7/bin/arm-eabi-
+            export CCACHE_DIR=/cm/.ccache
+            ccache -M 10G || true
+            cd /cm
+            source build/envsetup.sh
+            lunch cm_rossa-userdebug
+            make -j$(nproc --all) otapackage
+          '
+
+      - name: Collect output
+        if: success()
+        run: |
+          mkdir -p out
+          cp /mnt/cm/out/target/product/rossa/cm-12.1-*.zip out/
+          cp /mnt/cm/out/target/product/rossa/cm-12.1-*.zip.md5sum out/ 2>/dev/null || true
+          ls -lh out/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: cm-12.1-rossa
+          path: out/*
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: cm-12.1-rossa-${{ github.run_number }}
+          name: CM 12.1 rossa (build ${{ github.run_number }})
+          body: Unofficial CM 12.1 build for Samsung rossa.
+          files: out/*

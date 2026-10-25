@@ -99,14 +99,18 @@ jobs:
           repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j8
           df -h /mnt
 
-      - name: Patch ionalloc heap field
+      - name: Patch ION heap_mask -> heap_id_mask
         run: |
           cd /mnt/cm
-          sed -i 's/ionAllocData\.heap_mask/ionAllocData.heap_id_mask/' \
-            hardware/qcom/display-caf/msm8916-old/libgralloc/ionalloc.cpp
-          sed -n 70,82p hardware/qcom/display-caf/msm8916-old/libgralloc/ionalloc.cpp
-          grep -rn "heap_mask" hardware/qcom/*-caf/msm8916-old | grep -v heap_id_mask | head
-
+          grep -rlw "heap_mask" hardware/qcom/display-caf/msm8916-old \
+                                hardware/qcom/media-caf/msm8916-old \
+                                hardware/qcom/audio-caf/msm8916-old \
+                                --include=*.c --include=*.cpp \
+            | xargs -r sed -i 's/\bheap_mask\b/heap_id_mask/g'
+          echo "--- remaining uses of heap_mask:"
+          grep -rnw "heap_mask" hardware/qcom/*-caf/msm8916-old | head
+          echo "--- patched:"
+          grep -rn "heap_id_mask" hardware/qcom/media-caf/msm8916-old | head
       - name: Fetch toolchain
         run: |
           cd /mnt/cm

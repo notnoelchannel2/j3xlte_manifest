@@ -117,9 +117,9 @@ jobs:
           cd /mnt/cm
           sed -i 's/info\.roi\.\([xywh]\)/info.l_roi.\1/g' \
             hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
-          sed -n 445,470p hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
+          sed -n 453,466p hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
           echo "--- other uses of roi in the display HAL:"
-          grep -rnw "roi" hardware/qcom/display-caf/msm8916-old | head -20
+          grep -rnw "roi" hardware/qcom/display-caf/msm8916-old | grep -v "overlay.cpp" | head -20
           
       - name: Fetch toolchain
         run: |

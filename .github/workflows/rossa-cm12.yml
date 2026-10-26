@@ -120,6 +120,13 @@ jobs:
           sed -n 453,466p hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
           echo "--- other uses of roi in the display HAL:"
           grep -rnw "roi" hardware/qcom/display-caf/msm8916-old | grep -v "overlay.cpp" | head -20
+
+      - name: Fix utf16_to_utf8 call in DashPlayer
+        run: |
+          cd /mnt/cm
+          sed -i 's/utf16_to_utf8(str, len, (char\*) data);/utf16_to_utf8(str, len, (char*) data, len + 1);/' \
+            hardware/qcom/media-caf/msm8916-old/dashplayer/DashPlayer.cpp
+          grep -n "utf16_to_utf8" hardware/qcom/media-caf/msm8916-old/dashplayer/DashPlayer.cpp
           
       - name: Fetch toolchain
         run: |

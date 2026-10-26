@@ -111,6 +111,16 @@ jobs:
           grep -rnw "heap_mask" hardware/qcom/*-caf/msm8916-old | head
           echo "--- patched:"
           grep -rn "heap_id_mask" hardware/qcom/media-caf/msm8916-old | head
+
+      - name: Patch roi -> l_roi in liboverlay
+        run: |
+          cd /mnt/cm
+          sed -i 's/info\.roi\.\([xywh]\)/info.l_roi.\1/g' \
+            hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
+          sed -n 445,470p hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
+          echo "--- other uses of roi in the display HAL:"
+          grep -rnw "roi" hardware/qcom/display-caf/msm8916-old | head -20
+          
       - name: Fetch toolchain
         run: |
           cd /mnt/cm

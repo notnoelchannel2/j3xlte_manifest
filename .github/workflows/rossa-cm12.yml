@@ -56,13 +56,8 @@ jobs:
 
               <!-- Device -->
               <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" remote="gh" revision="cm-12.1"/>
-              <project path="kernel/samsung/rossa-caf" name="notnoelchannel2/android_kernel_samsung_rossa-caf" remote="gh" revision="APSS.FSM.3.0.r5.1.1"/>
+              <project path="kernel/samsung/coreprimelte" name="https://github.com/NXTnet/android_kernel_samsung_coreprimelte" remote="gh" revision="cm-12.1"/>
               <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="cm-12.1"/>
-
-              <!-- Hardware -->
-              <project path="hardware/qcom/display-caf/msm8916-old" name="Panyoujies/android_hardware_qcom_display-caf_msm8916" remote="gh" revision="master"/>
-              <project path="hardware/qcom/media-caf/msm8916-old" name="Panyoujies/android_hardware_qcom_media-caf_msm8916" remote="gh" revision="master"/>
-              <project path="hardware/qcom/audio-caf/msm8916-old" name="Panyoujies/CyanogenMod_hardware_qcom_audio-caf_msm8916" remote="gh" revision="master"/>
 
               <!-- Common -->
               <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="gh" revision="cm-12.1"/>
@@ -98,35 +93,6 @@ jobs:
           cd /mnt/cm
           repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j8
           df -h /mnt
-
-      - name: Patch ION heap_mask -> heap_id_mask
-        run: |
-          cd /mnt/cm
-          grep -rlw "heap_mask" hardware/qcom/display-caf/msm8916-old \
-                                hardware/qcom/media-caf/msm8916-old \
-                                hardware/qcom/audio-caf/msm8916-old \
-                                --include=*.c --include=*.cpp \
-            | xargs -r sed -i 's/\bheap_mask\b/heap_id_mask/g'
-          echo "--- remaining uses of heap_mask:"
-          grep -rnw "heap_mask" hardware/qcom/*-caf/msm8916-old | head
-          echo "--- patched:"
-          grep -rn "heap_id_mask" hardware/qcom/media-caf/msm8916-old | head
-
-      - name: Patch roi -> l_roi in liboverlay
-        run: |
-          cd /mnt/cm
-          sed -i 's/info\.roi\.\([xywh]\)/info.l_roi.\1/g' \
-            hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
-          sed -n 453,466p hardware/qcom/display-caf/msm8916-old/liboverlay/overlay.cpp
-          echo "--- other uses of roi in the display HAL:"
-          grep -rnw "roi" hardware/qcom/display-caf/msm8916-old | grep -v "overlay.cpp" | head -20
-
-      - name: Fix utf16_to_utf8 call in DashPlayer
-        run: |
-          cd /mnt/cm
-          sed -i 's/utf16_to_utf8(str, len, (char\*) data);/utf16_to_utf8(str, len, (char*) data, len + 1);/' \
-            hardware/qcom/media-caf/msm8916-old/dashplayer/DashPlayer.cpp
-          grep -n "utf16_to_utf8" hardware/qcom/media-caf/msm8916-old/dashplayer/DashPlayer.cpp
           
       - name: Fetch toolchain
         run: |
@@ -205,5 +171,5 @@ jobs:
         with:
           tag_name: cm-12.1-rossa-${{ github.run_number }}
           name: CM 12.1 rossa (build ${{ github.run_number }})
-          body: Unofficial CM 12.1 recovery image build for Samsung rossa.
+          body: Unofficial CM 12.1 build for Samsung rossa.
           files: out/*

@@ -59,6 +59,7 @@ jobs:
               <project path="kernel/samsung/coreprimelte" name="NXTnet/android_kernel_samsung_coreprimelte" remote="gh" revision="cm-12.1"/>
               <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="fix-firmware-mounts"/>
               <project path="external/mm-dash" name="CyanogenMod/android_external_mm-dash" revision="cm-12.1" />
+              <project path="hardware/qcom/fm" name="CyanogenMod/android_hardware_qcom_fm" revision="cm-12.1" />
               <!-- Common -->
               <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="gh" revision="cm-12.1"/>
               <project path="device/samsung/qcom-common" name="LineageOS/android_device_samsung_qcom-common" remote="gh" revision="cm-12.1"/>

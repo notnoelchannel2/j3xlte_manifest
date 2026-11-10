@@ -56,7 +56,7 @@ jobs:
 
               <!-- Device -->
               <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" remote="gh" revision="cm-12.1"/>
-              <project path="kernel/samsung/coreprimelte" name="https://github.com/NXTnet/android_kernel_samsung_coreprimelte" remote="gh" revision="cm-12.1"/>
+              <project path="kernel/samsung/coreprimelte" name="NXTnet/android_kernel_samsung_coreprimelte" remote="gh" revision="cm-12.1"/>
               <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="cm-12.1"/>
 
               <!-- Common -->

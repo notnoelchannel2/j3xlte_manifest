@@ -57,7 +57,9 @@ jobs:
               <!-- Device -->
               <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" remote="gh" revision="cm-12.1"/>
               <project path="kernel/samsung/coreprimelte" name="NXTnet/android_kernel_samsung_coreprimelte" remote="gh" revision="cm-12.1"/>
-              <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="cm-12.1"/>
+              <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="fix-firmware-mounts"/>
+
+              <project path="external/mm-dash" name="CyanogenMod/android_external_mm-dash" revision="cm-12.1" />
 
               <!-- Common -->
               <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="gh" revision="cm-12.1"/>
@@ -143,6 +145,7 @@ jobs:
             export USE_CCACHE=1
             export CROSS_COMPILE=/cm/toolchains/arm-eabi-4.7/bin/arm-eabi-
             export CCACHE_DIR=/cm/.ccache
+            sed -i 's/^YYLTYPE yylloc;/extern YYLTYPE yylloc;/' /cm/kernel/samsung/coreprimelte/scripts/dtc/dtc-lexer.lex.c_shipped
             ccache -M 10G || true
             cd /cm
             source build/envsetup.sh

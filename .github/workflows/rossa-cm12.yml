@@ -9,9 +9,10 @@ jobs:
     timeout-minutes: 360
     permissions:
       contents: write
+
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Free up disk space
         run: |
@@ -53,14 +54,11 @@ jobs:
           <?xml version="1.0" encoding="UTF-8"?>
           <manifest>
               <remote name="gh" fetch="https://github.com/"/>
-
               <!-- Device -->
               <project path="device/samsung/rossa" name="notnoelchannel2/android_device_samsung_rossa" remote="gh" revision="cm-12.1"/>
               <project path="kernel/samsung/coreprimelte" name="NXTnet/android_kernel_samsung_coreprimelte" remote="gh" revision="cm-12.1"/>
               <project path="vendor/samsung/rossa" name="notnoelchannel2/android_vendor_samsung_rossa" remote="gh" revision="fix-firmware-mounts"/>
-
               <project path="external/mm-dash" name="CyanogenMod/android_external_mm-dash" revision="cm-12.1" />
-
               <!-- Common -->
               <project path="hardware/samsung" name="LineageOS/android_hardware_samsung" remote="gh" revision="cm-12.1"/>
               <project path="device/samsung/qcom-common" name="LineageOS/android_device_samsung_qcom-common" remote="gh" revision="cm-12.1"/>
@@ -95,7 +93,7 @@ jobs:
           cd /mnt/cm
           repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j8
           df -h /mnt
-          
+
       - name: Fetch toolchain
         run: |
           cd /mnt/cm
@@ -145,7 +143,7 @@ jobs:
             export USE_CCACHE=1
             export CROSS_COMPILE=/cm/toolchains/arm-eabi-4.7/bin/arm-eabi-
             export CCACHE_DIR=/cm/.ccache
-            sed -i 's/^YYLTYPE yylloc;/extern YYLTYPE yylloc;/' /cm/kernel/samsung/coreprimelte/scripts/dtc/dtc-lexer.lex.c_shipped
+            sed -i "s/^YYLTYPE yylloc;/extern YYLTYPE yylloc;/" /cm/kernel/samsung/coreprimelte/scripts/dtc/dtc-lexer.lex.c_shipped
             ccache -M 10G || true
             cd /cm
             source build/envsetup.sh
@@ -162,7 +160,7 @@ jobs:
           ls -lh out/
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: cm-12.1-rossa
           path: out/*

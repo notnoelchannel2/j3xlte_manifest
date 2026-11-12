@@ -16,32 +16,41 @@ jobs:
 
       - name: Free up disk space
         run: |
-          df -h / /mnt
-          # Preinstalled SDKs and toolchains we never use
+          echo "Space before cleanup:"
+          df -h
+          
+          # Aggressively remove large, unneeded pre-installed software
           sudo rm -rf \
-            /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup \
-            /opt/hostedtoolcache /usr/local/share/boost /usr/local/share/powershell \
-            /usr/local/share/chromium /usr/local/share/vcpkg /usr/local/lib/node_modules \
-            /usr/local/julia* /usr/share/swift /usr/share/miniconda /usr/lib/jvm \
-            /opt/az /opt/microsoft /opt/google /opt/pipx /opt/mssql-tools \
-            /usr/local/aws-cli /usr/local/aws-sam-cli /usr/local/bin/minikube \
-            /usr/local/bin/kind /usr/local/bin/helm /usr/local/bin/pulumi* \
-            /etc/skel/.rustup /home/runner/.rustup /home/runner/.cargo \
-            "$AGENT_TOOLSDIRECTORY" || true
-          # Big apt packages (browsers, databases, cloud CLIs, compilers we don't need)
-          sudo apt-get remove -y --purge \
-            '^aspnetcore-.*' '^dotnet-.*' '^llvm-.*' '^clang-.*' '^mongodb-.*' \
-            '^mysql-.*' '^postgresql-.*' '^php.*' '^temurin-.*' '^openjdk-.*' \
-            azure-cli google-cloud-cli google-chrome-stable firefox microsoft-edge-stable \
-            powershell mono-devel libgl1-mesa-dri snapd 2>/dev/null || true
-          sudo apt-get autoremove -y --purge || true
+            /usr/share/dotnet \
+            /usr/local/lib/android \
+            /opt/ghc \
+            /opt/hostedtoolcache \
+            /usr/local/share/boost \
+            /usr/lib/jvm \
+            /usr/local/share/powershell \
+            /usr/share/swift \
+            /usr/share/miniconda \
+            /usr/local/lib/node_modules \
+            /usr/lib/google-cloud-sdk \
+            /usr/share/rust \
+            /usr/local/.ghcup
+          
+          # Clean up apt packages
           sudo apt-get clean
-          # Docker images we don't use (ubuntu:14.04 is pulled later)
+          sudo apt-get autoremove -y
+          
+          # Prune all docker images, containers, and volumes
           sudo docker system prune -af --volumes || true
-          sudo journalctl --vacuum-size=10M || true
+          
+          # Disable and remove swapfile to reclaim ~4GB
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile || true
+          
           # /mnt is a separate disk with much more free space, build there
           sudo mkdir -p /mnt/cm
           sudo chown -R $USER:$USER /mnt/cm
+          
+          echo "Space after cleanup:"
           df -h / /mnt
 
       - name: Install repo tool and git config (host)
@@ -57,9 +66,7 @@ jobs:
         run: |
           export PATH=~/.bin:$PATH
           cd /mnt/cm
-          # skip macOS-host and MIPS prebuilts (several GB we never use)
-          repo init --depth=1 -u https://github.com/CyanogenMod/android.git -b cm-13.0 \
-            -g default,-darwin,-mips,-notdefault
+          repo init --depth=1 -u https://github.com/CyanogenMod/android.git -b cm-13.0
 
       - name: Dump base manifest (before local manifest exists)
         run: |
@@ -117,29 +124,21 @@ jobs:
           export PATH=~/.bin:$PATH
           cd /mnt/cm
           repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j8
-          # chromium-webview is in the base manifest (shallow); only fetch it if sync left it empty
-          if [ ! -e external/chromium-webview/Android.mk ]; then
-            rm -rf external/chromium-webview
-            git clone --depth 1 -b cm-13.0 https://github.com/CyanogenMod/android_external_chromium-webview external/chromium-webview
-          fi
           df -h /mnt
 
-      - name: Prepare sources
+      - name: Fetch toolchain
         run: |
           cd /mnt/cm
-          # zygote: skip unsupported fds instead of aborting. The patch paths
-          # start with frameworks/base/, so strip 3 components inside that repo.
-          (cd frameworks/base && git apply -p3 ../../device/samsung/rossa/patches/frameworks_base/0001-zygote-skip-unsupported-fds.patch)
-          # dtc: duplicate yylloc definition with newer host compilers
-          sed -i "s/^YYLTYPE yylloc;/extern YYLTYPE yylloc;/" kernel/samsung/rossa/scripts/dtc/dtc-lexer.lex.c_shipped
+          # toolchain lives inside the mounted tree so the container can see it (/cm/toolchains/...)
+          mkdir -p toolchains
+          rm -rf toolchains/arm-eabi-4.7
+          git clone --depth 1 --branch android-4.4.4_r2.0.1 --single-branch \
+            https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 \
+            toolchains/arm-eabi-4.7
 
       - name: Prefetch downloaded prebuilts (Maven/HTTP)
         run: |
           cd /mnt/cm
-          # vendor/cm fetches these during the build with Maven and curl inside the
-          # 14.04 container, whose Java 7/Maven 3.0 can't talk to Maven Central any more.
-          # The make rules only download when the output file is missing, so put
-          # the files there with the host's curl first.
           amb=vendor/cm/ambientsdk/Android.mk
           if [ -f "$amb" ]; then
             v=$(sed -n 's/^LOCAL_MAVEN_VERSION *:= *//p' "$amb" | tr -d '[:space:]')
@@ -180,13 +179,12 @@ jobs:
             dpkg --add-architecture i386
             apt-get update || true
             apt-get install -y \
-              bc bison build-essential curl flex g++-multilib gcc-multilib \
+              bc bison build-essential ccache curl flex g++-multilib gcc-multilib \
               git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-gplv2-dev \
               lib32z1-dev libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev \
-              libssl-dev libwxgtk2.8-dev libxml2 libxml2-utils maven lzop openjdk-7-jdk \
-              openjdk-7-jre pngcrush rsync schedtool squashfs-tools xsltproc zip \
-              zlib1g-dev python python3 python-markdown unzip wget lzma
-            apt-get clean
+              libssl-dev libwxgtk2.8-dev libxml2 libxml2-utils lzop openjdk-7-jdk \
+              openjdk-7-jre pngcrush rsync schedtool maven squashfs-tools xsltproc zip \
+              zlib1g-dev python python-markdown unzip wget lzma
           '
 
       - name: Building CM 13.0
@@ -197,10 +195,18 @@ jobs:
             export PATH=$JAVA_HOME/bin:$PATH
             export LC_ALL=C
             export ALLOW_MISSING_DEPENDENCIES=true
+            export USE_CCACHE=1
             export KBUILD_BUILD_USER=notnoelchannel
             export KBUILD_BUILD_HOST=notnoelchannel
-            # Jack (Marshmallow Java compiler) runs out of heap with the default
-            export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx6g"
+            export CROSS_COMPILE=/cm/toolchains/arm-eabi-4.7/bin/arm-eabi-
+            export CCACHE_DIR=/cm/.ccache
+            rm -rf /cm/external/chromium-webview
+            git clone https://github.com/CyanogenMod/android_external_chromium-webview /cm/external/chromium-webview
+            sed -i "s/^YYLTYPE yylloc;/extern YYLTYPE yylloc;/" /cm/kernel/samsung/rossa/scripts/dtc/dtc-lexer.lex.c_shipped
+            ccache -M 10G || true
+            cd /cm
+            cd frameworks/base
+            git apply --check -p3 ../../device/samsung/rossa/patches/frameworks_base/0001-zygote-skip-unsupported-fds.patch
             cd /cm
             source build/envsetup.sh
             lunch cm_rossa-userdebug

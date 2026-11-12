@@ -160,7 +160,7 @@ jobs:
               git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-gplv2-dev \
               lib32z1-dev libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev \
               libssl-dev libwxgtk2.8-dev libxml2 libxml2-utils lzop openjdk-7-jdk \
-              openjdk-7-jre pngcrush rsync schedtool squashfs-tools xsltproc zip \
+              openjdk-7-jre pngcrush rsync schedtool maven squashfs-tools xsltproc zip \
               zlib1g-dev python python-markdown unzip wget lzma
           '
 

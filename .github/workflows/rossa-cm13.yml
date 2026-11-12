@@ -16,11 +16,41 @@ jobs:
 
       - name: Free up disk space
         run: |
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache
-          sudo docker image prune -af || true
+          echo "Space before cleanup:"
+          df -h
+          
+          # Aggressively remove large, unneeded pre-installed software
+          sudo rm -rf \
+            /usr/share/dotnet \
+            /usr/local/lib/android \
+            /opt/ghc \
+            /opt/hostedtoolcache \
+            /usr/local/share/boost \
+            /usr/lib/jvm \
+            /usr/local/share/powershell \
+            /usr/share/swift \
+            /usr/share/miniconda \
+            /usr/local/lib/node_modules \
+            /usr/lib/google-cloud-sdk \
+            /usr/share/rust \
+            /usr/local/.ghcup
+          
+          # Clean up apt packages
+          sudo apt-get clean
+          sudo apt-get autoremove -y
+          
+          # Prune all docker images, containers, and volumes
+          sudo docker system prune -af --volumes || true
+          
+          # Disable and remove swapfile to reclaim ~4GB
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile || true
+          
           # /mnt is a separate disk with much more free space, build there
           sudo mkdir -p /mnt/cm
           sudo chown -R $USER:$USER /mnt/cm
+          
+          echo "Space after cleanup:"
           df -h / /mnt
 
       - name: Install repo tool and git config (host)

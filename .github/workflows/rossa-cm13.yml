@@ -183,7 +183,7 @@ jobs:
             ccache -M 10G || true
             cd /cm
             cd frameworks/base
-            git apply ../../device/samsung/rossa/patches/frameworks_base/0001-zygote-skip-unsupported-fds.patch
+            git apply --check -p3 ../../device/samsung/rossa/patches/frameworks_base/0001-zygote-skip-unsupported-fds.patch
             cd /cm
             source build/envsetup.sh
             lunch cm_rossa-userdebug
